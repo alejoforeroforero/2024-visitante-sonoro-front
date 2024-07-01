@@ -1,0 +1,28 @@
+.generalContent {
+  height: calc(100vh - 60px);
+}
+
+.canvas {
+  height: 200px;
+  overflow: hidden;
+}
+
+.mainContent {
+  height: calc(100% - 60px);
+  max-height: calc(100% - 60px);
+  overflow: scroll;
+  padding-bottom: 120px;
+}
+
+.audioPlayerContent {
+  width: 100vw;
+  background-color: black;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

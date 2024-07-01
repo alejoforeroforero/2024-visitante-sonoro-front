@@ -1,0 +1,52 @@
+.intro {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(66, 66, 66);
+}
+
+.head {
+  text-align: center;
+
+  img {
+    margin-top: 20vh;
+    height: 20vh;
+    height: auto;
+    cursor: pointer;
+    filter: grayscale(5) saturate(0) sepia(80%);
+
+    &&:hover {
+      filter: invert();
+    }
+  }
+}
+
+.title {
+  text-align: center;
+
+  h1 {
+    font-family: "Bruno Ace", cursive;
+    color: rgb(229, 229, 229);
+    cursor: pointer;
+
+    &&:hover {
+      color: rgb(251, 158, 184);
+    }
+  }
+}
+
+.instructions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+
+  img {
+    width: 35px;
+    filter: invert();
+    margin: 0 10px;
+  }
+
+  p {
+    color: rgb(229, 229, 229);
+  }
+}
