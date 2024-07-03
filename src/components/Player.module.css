@@ -1,0 +1,142 @@
+.player {
+  width: 100vw;
+  display: flex;
+  height: 60px;
+}
+
+.info {
+  width: 25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 4px 0;
+
+  p {
+    width: 80%;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+}
+
+.controls {
+  width: 50vw;
+  height: 100%;
+
+  audio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+  }
+}
+
+.buttons {
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    margin: 0 10px;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+.progress {
+  height: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  color: #ddd;
+  transform: translate(0, -10px);
+}
+
+.currentTime {
+  width: 60px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.time {
+  width: 60px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.progressBar {
+  width: 100%;
+  height: 20px;
+  position: relative;
+}
+
+.progressOver {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0);
+
+  z-index: 2;
+}
+
+.progressBarBG {
+  width: 100%;
+  height: 3px;
+  top: 7px;
+  background: #ddd;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+}
+
+.currentProgress {
+  height: 100%;
+  background: #2196f3;
+  width: 0;
+}
+
+.volumeContainer{
+  width: 25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.volume {
+  width: 80%;
+  height: 20px;
+  position: relative;
+}
+
+.volumeOver {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0);
+
+  z-index: 2;
+}
+
+.volumeBG {
+  width: 100%;
+  height: 20px;
+  background: #ddd;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+}
+
+.currentVolume {
+  height: 20px;
+  background: #2196f3;
+  width: 50%;
+}

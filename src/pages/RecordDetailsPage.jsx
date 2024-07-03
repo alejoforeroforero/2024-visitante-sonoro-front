@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecordDetails } from "@/redux/states/recordingsActions";
@@ -8,7 +8,6 @@ const RecordDetailsPage = () => {
   const { recordId } = useParams();
   const recordDetails = useSelector((state) => state.recordings.recordDetails);
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(fetchRecordDetails(recordId));

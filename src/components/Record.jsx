@@ -4,7 +4,7 @@ import styles from "./Record.module.css";
 const Record = ({ record }) => {
   //console.log(record);
   return (
-    <Link to={`record/${record.id}`}>
+    <Link to={`/record/${record.id}`}>
       <div className="box">
         <h2 className="record-title">{record.title}</h2>
         <h3 className="record-title">{record.category}</h3>

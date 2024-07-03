@@ -10,10 +10,11 @@
 }
 
 :root {
+  --menu-color:#2d2929;
   --nav-bg: #dcdcdc;
   --background-color: #f6f6f6;
   --foreground-color: #849cea;
-  --primary-text-color: #676962;
+  --primary-text-color: #585858;
   --secondary-text-color: #5d4f4f;
   --toogle-bg: #aeac8d;
   --toogle-fg: #ffd000;
@@ -22,30 +23,16 @@
 }
 
 [data-theme="dark"] {
+  --menu-color:#fff;
   --nav-bg: #4d4d4d;
   --background-color: #272626;
   --foreground-color: #4770f8;
-  --primary-text-color: #8eb2ff;
-  --secondary-text-color: #285291;
+  --primary-text-color: #fbfbfb;
+  --secondary-text-color: #dce7f8;
   --toogle-bg: #3a4cc1;
   --toogle-fg: #1c93ee;
   --btn-bg-color: #ffffff;
   --btn--color: #329cfa;
-}
-
-nav {
-  height: 60px;
-  background-color: var(--nav-bg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  a {
-    color: var(--primary-text-color);
-    font-size: 1.4em;
-    font-weight: 700;
-    margin: 0 12px;
-  }
 }
 
 h1 {
@@ -56,6 +43,11 @@ h1 {
 h2 {
   color: var(--secondary-text-color);
   font-size: 1.4rem;
+}
+
+h3 {
+  color: var(--secondary-text-color);
+  font-size: 1.1rem;
 }
 
 p {

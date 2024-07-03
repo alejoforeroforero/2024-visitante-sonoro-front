@@ -53,5 +53,5 @@ export const askQuestions = async (question) => {
   chatHistory.push(new HumanMessage(question));
   chatHistory.push(new AIMessage(response.output));
 
-  return response.output;
+  return chatHistory;
 };

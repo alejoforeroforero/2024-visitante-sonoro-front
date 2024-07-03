@@ -1,44 +1,55 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { fetchRecordings } from "@/redux/states/recordingsActions";
-import Recordings from "@/components/Recordings";
+import { fetchRecordDetails } from "@/redux/states/recordingsActions";
+import { changeAudio } from "@/redux/states/audioPlayerSlice";
+import Player from "@/components/Player";
+import AudioVisualizer from "@/components/AudioVisualizer";
 
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
-  const { recordings, error, status } = useSelector(
-    (state) => state.recordings
+  const [currentAudioSrc, setCurrentAudioSrc] = useState(null);
+  const recordDetails = useSelector((state) => state.recordings.recordDetails);
+  const recordDetailsSelected = useSelector(
+    (state) => state.audio.recordDetails
   );
-
-  console.log(status);
-
+  const [firstRender, setFirstRender] = useState(false);
   const dispatch = useDispatch();
 
-  const [filters, setFilters] = useState({
-    title: "",
-    categoryId: null,
-  });
+  const audioRef = useRef(null);
 
   useEffect(() => {
-    const request = dispatch(fetchRecordings(filters));
+    dispatch(fetchRecordDetails(1));
+  }, []);
 
-    return () => {
-      request.abort();
-    };
-  }, [dispatch, filters]);
+  useEffect(() => {
+    if (!firstRender) {
+      dispatch(changeAudio(recordDetails));    }
+  }, [recordDetails]);
 
-  const handleFilters = () => {
-    setFilters({
-      title: "jazz",
-      categoryId: 2,
-    });
-  };
+  useEffect(() => {
+    if (recordDetails.audio) {
+      setCurrentAudioSrc(recordDetails.audio);
+      setFirstRender(true);
+    }
+  }, [recordDetailsSelected]);
 
   return (
-    <div className={styles.container}>
-      <Recordings list={recordings} />
-    </div>
+    <>
+      <div className={styles.generalContent}>
+        <div className={styles.mainContent}>
+          <AudioVisualizer
+            audioRef={audioRef}
+            currentAudioSrc={currentAudioSrc}
+          />
+          <Outlet />
+        </div>
+      </div>
+      <div className={styles.audioPlayerContent}>
+        <Player audioRef={audioRef} currentAudioSrc={currentAudioSrc} />
+      </div>
+    </>
   );
 };
 

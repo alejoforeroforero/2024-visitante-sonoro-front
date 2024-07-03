@@ -1,17 +1,15 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { changeAudio } from "@/redux/states/audioPlayerSlice";
 
 import styles from "./RecordDetails.module.css";
 
 const RecordDetails = ({ recordDetails }) => {
-
   const dispatch = useDispatch();
 
-  const handleChangeAudio = ()=>{
-    dispatch(changeAudio(recordDetails.audio))
-  }
+  const handleChangeAudio = () => {
+    dispatch(changeAudio(recordDetails));
+  };
 
- 
   return (
     <div className={styles.container}>
       <h1>Record Details</h1>

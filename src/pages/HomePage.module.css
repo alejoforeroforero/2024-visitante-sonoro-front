@@ -1,5 +1,27 @@
-.container{
-    padding-top: 40px;
-    display: flex;
-    flex-direction: column;
+.generalContent {
+  height: 100vh;
+  overflow: scroll;
+  padding-top: 40px;
+}
+
+.canvas {
+  height: 200px;
+  overflow: hidden;
+}
+
+.mainContent {
+  padding-bottom: 60px;
+}
+
+.audioPlayerContent {
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

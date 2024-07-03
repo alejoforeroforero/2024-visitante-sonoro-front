@@ -11,7 +11,7 @@ const Toogle = ({ handleChange, isCheked }) => {
         onChange={handleChange}
         checked={isCheked}
       />
-      <label htmlFor="check">Dark Mode</label>
+      <label htmlFor="check"></label>
     </div>
   );
 };

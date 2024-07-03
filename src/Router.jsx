@@ -7,6 +7,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import UserPage from "./pages/UserPage";
 import ChatPage from "@/pages/ChatPage";
+import RecordingsPage from "./pages/RecordingsPage";
+import LandingPage from "./pages/LandingPage";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +18,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: <LandingPage />,
+      },
+      {
+        path: "/recordings",
+        element: <RecordingsPage />,
       },
       {
         path: "/record/:recordId",

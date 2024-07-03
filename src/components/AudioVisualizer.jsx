@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import styles from "./AudioVisualizer.module.css";
 import styled from "styled-components";
 
@@ -10,20 +9,12 @@ const Canvas = styled.canvas`
   background: #333;
 `;
 
-const AudioVisualizer = ({ src }) => {
-  const audioObj = useSelector((state) => state.audio);
-  const [currentAudioSrc, setCurrentAudioSrc] = useState(null);
-
-  const audioRef = useRef(null);
+const AudioVisualizer = ({ audioRef, currentAudioSrc }) => {
   const canvasRef = useRef(null);
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
   const dataArrayRef = useRef(null);
   const frame1 = useRef(0);
-
-  useEffect(() => {
-    setCurrentAudioSrc(audioObj.audioSrc);
-  }, [audioObj]);
 
   useEffect(() => {
     let audioContext;
@@ -63,7 +54,6 @@ const AudioVisualizer = ({ src }) => {
 
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-        //const barWidth = (canvas.width / dataArrayRef.current.length) * 1.2;
         const barWidth = (canvas.width / dataArrayRef.current.length) * 3;
         let barHeight;
         let x = -80;
@@ -81,7 +71,6 @@ const AudioVisualizer = ({ src }) => {
 
           prevX = x;
           prevY = barHeight;
-          //x += canvas.width / 40;
           x += barWidth + 1;
         });
       }
@@ -97,21 +86,7 @@ const AudioVisualizer = ({ src }) => {
   }, [currentAudioSrc]);
 
   return (
-    <div className={styles.generalContent}>
-      <div className={styles.mainContent}>
-        <Canvas ref={canvasRef} />
-        <Outlet />
-      </div>
-      <div className={styles.audioPlayerContent}>
-        <audio
-          ref={audioRef}
-          src={currentAudioSrc}
-          controls
-          crossOrigin="anonymous"
-          autoPlay
-        />
-      </div>
-    </div>
+    <Canvas ref={canvasRef} />
   );
 };
 

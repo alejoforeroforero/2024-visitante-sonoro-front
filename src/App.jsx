@@ -1,11 +1,9 @@
 import { useState } from "react";
 import useLocalStorage from "use-local-storage";
 
-import IntroPage from "@/pages/IntroPage";
 import NavBar from "@/components/NavBar";
-import AudioVisualizer from "@/components/AudioVisualizer";
-
-const audioSrc = "http://127.0.0.1:8000/media/audio/Dominguito_toma_2.mp3";
+import IntroPage from "@/pages/IntroPage";
+import HomePage from "./pages/HomePage";
 
 import "./App.css";
 
@@ -24,7 +22,7 @@ function App() {
       {firstClick && (
         <div className="App" data-theme={isDark ? "dark" : "light"}>
           <NavBar isDark={isDark} setIsDark={setIsDark} />
-          <AudioVisualizer src={audioSrc} />
+          <HomePage />         
         </div>
       )}
     </>
