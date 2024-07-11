@@ -1,5 +1,84 @@
-.image{
-    img{
-        width: 90px;
+.recordBox {
+  width: 100%;
+  height: 340px;
+  border-radius: 10px;
+  background-color: var(--audio-box-bg);
+  display: grid;
+  grid-template-rows: 2fr 4fr 2fr 1fr 1fr;
+  margin: auto;
+
+  svg {
+    height: 80px;
+    width: 80px;
+    padding: 20px;
+    background-color: var(--audio-play-bg);
+    border-radius: 12px;
+    color: var(--play-color);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(117, 117, 117);
     }
+  }
+
+  div {
+    height: 100%;
+    width: 100%;
+    padding: 0px 20px;
+  }
+
+  div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      font-size: 1.2rem;
+      color: var(--audio-title);
+
+      &:hover {
+        color: rgb(131, 191, 250);
+      }
+    }
+  }
+
+  div:nth-child(2) {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h3 {
+      font-size: 0.9rem;
+    }
+  }
+
+  div:nth-child(4) {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    h4 {
+      font-size: 0.8rem;
+    }
+
+    a {
+      font-size: 0.8rem;
+      color: var(--audio-categoria);
+      margin-left: 4px;
+      &:hover {
+        color: rgb(131, 191, 250);
+      }
+    }
+  }
+
+  div:nth-child(5) {
+    text-align: center;
+  }
 }

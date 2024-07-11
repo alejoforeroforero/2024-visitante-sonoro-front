@@ -1,0 +1,23 @@
+.container {
+  padding: 20px;
+  margin: auto;
+  max-width: 800px;
+}
+
+.imagen {
+  img {
+    border-radius: 14px;
+  }
+}
+
+.title{
+    margin-top: 10px;
+}
+
+.description {
+  margin-top: 20px;
+}
+
+.recordings{
+    margin-top: 30px;
+}

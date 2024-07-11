@@ -1,13 +1,17 @@
 import Record from "./Record";
-const Recordings = ({ list }) => {  
+
+import styles from "./Recordings.module.css";
+
+const Recordings = ({ list }) => {
+
   return (
-    <div className="box-conatiner">
-      {list.length > 0 ? (
+    <div className={styles.recordsInnerContainer}>
+      {list?.length > 0 ? (
         list.map((record) => {
           return <Record key={record.id} record={record} />;
         })
       ) : (
-        <p>No hay grbaciones disponibles</p>
+        <p>No hay grabaciones disponibles</p>
       )}
     </div>
   );

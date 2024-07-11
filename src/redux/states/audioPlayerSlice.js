@@ -13,7 +13,7 @@ const audioPlayerSlice = createSlice({
   initialState,
   reducers: {
     changeAudio: (state, action) => {
-      state.audioSrc = action.payload.audio;
+      //state.audioSrc = action.payload.audio;
       state.recordDetails = action.payload;
     },
   },

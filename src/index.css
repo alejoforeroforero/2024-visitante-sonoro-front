@@ -10,42 +10,71 @@
 }
 
 :root {
-  --menu-color:#2d2929;
+  --menu-color: #2d2929;
   --nav-bg: #dcdcdc;
   --background-color: #f6f6f6;
   --foreground-color: #849cea;
+
   --primary-text-color: #585858;
   --secondary-text-color: #5d4f4f;
+  --title-color: #151414;
+
   --toogle-bg: #aeac8d;
   --toogle-fg: #ffd000;
+
   --btn-bg-color: #329cfa;
   --btn--color: #ffffff;
+
+  --play-color: #e4dbdb;
+  --audio-box-bg: #e5dddd;
+  --audio-play-bg: #718487;
+  --audio-title:#2c5d92;
+  --audio-categoria:#4a96e7;
+
+  --author-bg-color: rgb(216, 216, 216);
 }
 
 [data-theme="dark"] {
-  --menu-color:#fff;
+  --menu-color: #fff;
   --nav-bg: #4d4d4d;
   --background-color: #272626;
   --foreground-color: #4770f8;
+
   --primary-text-color: #fbfbfb;
   --secondary-text-color: #dce7f8;
+  --title-color: #f3f3f3;
+
   --toogle-bg: #3a4cc1;
   --toogle-fg: #1c93ee;
+
   --btn-bg-color: #ffffff;
   --btn--color: #329cfa;
+
+  --play-color: #ffffff;
+  --audio-box-bg: #4e4e55;
+  --audio-play-bg: #80b9c0;
+  --audio-title:#4da0f9;
+  --audio-categoria:#4a96e7;
+
+  --author-bg-color: rgb(71, 71, 71);
 }
 
 h1 {
-  color: var(--primary-text-color);
+  color: var(--title-color);
   font-size: 1.6rem;
 }
 
 h2 {
-  color: var(--secondary-text-color);
+  color: var(--title-color);
   font-size: 1.4rem;
 }
 
 h3 {
+  color: var(--secondary-text-color);
+  font-size: 1.1rem;
+}
+
+h4 {
   color: var(--secondary-text-color);
   font-size: 1.1rem;
 }

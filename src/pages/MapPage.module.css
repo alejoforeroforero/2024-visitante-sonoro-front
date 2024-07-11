@@ -1,0 +1,17 @@
+.container{
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 100vw;;
+    height: 100vh;
+    background-color: rgba(255, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.marker{
+    background-color: rgb(48, 184, 247);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { changeAudio } from "@/redux/states/audioPlayerSlice";
+import { FaPlay } from "react-icons/fa";
 
 import styles from "./RecordDetails.module.css";
 
@@ -12,16 +13,16 @@ const RecordDetails = ({ recordDetails }) => {
 
   return (
     <div className={styles.container}>
-      <h1>Record Details</h1>
       <h2>{recordDetails.title}</h2>
-      <p>{recordDetails.audioSrc}</p>
-      <p>{recordDetails.category}</p>
-      <p>{recordDetails.author}</p>
+      <h3>{recordDetails.author}</h3>
+      <p>{recordDetails.description}</p>
+      <p>Categoria: {recordDetails.category}</p>
+
       <div className={styles.imagen}>
         <img src={recordDetails.image} alt="" />
       </div>
       <div>
-        <p onClick={handleChangeAudio}>Play</p>
+        <FaPlay onClick={handleChangeAudio} size={30} />
       </div>
     </div>
   );

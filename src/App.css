@@ -1,53 +1,16 @@
-.App{
-    width: 100%;
-    height: 100vh;
-    background-color: var(--background-color);
-    transition: background-color 0.15s ease-in-out;
+.App {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--background-color);
+  transition: background-color 0.15s ease-in-out;
 }
 
-.container-center{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content:center;
-    flex-direction:column;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.container-100w{
-    width: 100%;
-    height: 40px;
-    height: auto;
-    text-align: center;
-    margin: 10px 0;
-}
-
-.record-title{
-    color:var(--primary-text-color);
-    margin-bottom: 20px;
-}
-
-.box-conatiner{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.box{
-    padding: 20px;
-    width: 200px;
-    margin: 10px;
-    border-radius: 10px;
-    background-color: var(--foreground-color);
-    color:var(--secondary-text-color);
-}
-
-.button{
-    padding: 8px 14px;
-    font-size: 1.2em;
-    border-radius: 12px;
-    cursor: pointer;
-    border: none;
-    background-color: var(--btn-bg-color);
-    color: var(--btn--color);
+.button {
+  padding: 8px 14px;
+  font-size: 1.2em;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--btn-bg-color);
+  color: var(--btn--color);
 }

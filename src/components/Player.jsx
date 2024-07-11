@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { FaPlay, FaPause, FaStepForward, FaStepBackward } from "react-icons/fa";
 import styles from "./Player.module.css";
 
-const Player = ({ audioRef, currentAudioSrc }) => {
+const Player = ({ audioRef }) => {
   const recordDetails = useSelector((state) => state.audio.recordDetails);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -11,6 +11,7 @@ const Player = ({ audioRef, currentAudioSrc }) => {
   const [durationFormatted, setDurationFormatted] = useState("00:00");
   const [duration, setDuration] = useState(200);
   const [volumeWidth, setVolumeWidth] = useState(0);
+
 
   useEffect(() => {
     const setAudioData = () => {
@@ -23,12 +24,13 @@ const Player = ({ audioRef, currentAudioSrc }) => {
 
     audioRef.current.addEventListener("loadedmetadata", setAudioData);
     audioRef.current.addEventListener("timeupdate", setAudioTime);
+    audioRef.current.volume = 0.1;
 
     return () => {
       audioRef.current.removeEventListener("loadedmetadata", setAudioData);
       audioRef.current.removeEventListener("timeupdate", setAudioTime);
     };
-  }, [currentAudioSrc]);
+  }, [recordDetails]);
 
   useEffect(() => {
     setCurrentTimeFormatted(formatTime(audioRef.current.currentTime));
@@ -62,7 +64,6 @@ const Player = ({ audioRef, currentAudioSrc }) => {
     const offsetX = event.clientX - rect.left;
 
     const percentage = (offsetX * 100) / rect.width;
-    console.log(percentage);
 
     const volumeSelected = percentage / 100;
 
@@ -88,7 +89,7 @@ const Player = ({ audioRef, currentAudioSrc }) => {
       <div className={styles.controls}>
         <audio
           ref={audioRef}
-          src={currentAudioSrc}
+          src={recordDetails.audio}
           controls
           crossOrigin="anonymous"
           autoPlay

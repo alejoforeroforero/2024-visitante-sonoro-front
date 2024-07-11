@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchRecordings } from "@/redux/states/recordingsActions";
-import Recordings from "@/components/Recordings";
+import { fetchAuthors } from "@/redux/states/authorsActions";
+import Authors from "@/components/Authors";
 
-import styles from "./RecordingsPage.module.css";
+import styles from "./AuthorsPage.module.css";
 
-const RecordingsPage = () => {
+const AuthorsPage = () => {
   const dispatch = useDispatch();
 
-  const { recordings, error, status } = useSelector(
-    (state) => state.recordings
+  const { authors, error, status } = useSelector(
+    (state) => state.authors
   );
 
   const [filters, setFilters] = useState({
     title: "",
-    categoryId: null,
+    authorId:''
   });
 
+
   useEffect(() => {
-    const request = dispatch(fetchRecordings(filters));
+    const request = dispatch(fetchAuthors(filters));
 
     return () => {
       request.abort();
@@ -35,9 +36,9 @@ const RecordingsPage = () => {
 
   return (
     <div className={styles.container}>
-      <Recordings list={recordings} />
+      <Authors list={authors} />
     </div>
-  );
-};
+  )
+}
 
-export default RecordingsPage;
+export default AuthorsPage

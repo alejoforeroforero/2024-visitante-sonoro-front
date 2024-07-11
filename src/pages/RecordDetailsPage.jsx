@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRecordDetails } from "@/redux/states/recordingsActions";
 import RecordDetails from "@/components/RecordDetails";
 
+import styles from './RecordDetailsPage.module.css';
+
 const RecordDetailsPage = () => {
   const { recordId } = useParams();
   const recordDetails = useSelector((state) => state.recordings.recordDetails);
@@ -14,7 +16,7 @@ const RecordDetailsPage = () => {
   }, []);
 
   return (
-    <div className="box-conatiner">
+    <div className={styles.container}>
       <RecordDetails recordDetails={recordDetails}/>
     </div>
   );

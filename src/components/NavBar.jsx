@@ -31,12 +31,19 @@ const NavBar = ({ isDark, setIsDark }) => {
             <Link onClick={() => setShowMenu(false)} to="/">
               Inicio
             </Link>
-            <Link onClick={() => setShowMenu(false)} to="/recordings">
+            <Link onClick={() => setShowMenu(false)} to="/catalogo">
               Catalogo
+            </Link>
+            <Link onClick={() => setShowMenu(false)} to="/perfiles">
+              Perfiles
+            </Link>
+            <Link onClick={() => setShowMenu(false)} to="/mapa">
+              Mapa
             </Link>
             <Link onClick={() => setShowMenu(false)} to="/chat">
               Chat
             </Link>
+            
           </div>
         )}
       </nav>
