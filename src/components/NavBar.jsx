@@ -9,6 +9,10 @@ import styles from "./NavBar.module.css";
 const NavBar = ({ isDark, setIsDark }) => {
   const [showMenu, setShowMenu] = useState(false);
 
+  const handleChange = ()=>{
+    setIsDark(!isDark)
+  }
+
   return (
     <>
       <nav className={styles.container}>
@@ -17,7 +21,7 @@ const NavBar = ({ isDark, setIsDark }) => {
           <p>Visitante sonoro</p>
         </div>
         <div className={styles.dark}>
-          <Toogle isCheked={isDark} handleChange={() => setIsDark(!isDark)} />
+          <Toogle isDark={{isDark}} handleChange={handleChange} />
         </div>
         <div className={styles.hamburguer}>
           <GiHamburgerMenu

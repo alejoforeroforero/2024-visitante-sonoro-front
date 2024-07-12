@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PageTransitionWrapper from "@/components/PageTransitionWrapper";
 
 import { fetchRecordings } from "@/redux/states/recordingsActions";
 import Recordings from "@/components/Recordings";
@@ -34,9 +35,11 @@ const RecordingsPage = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Recordings list={recordings} />
-    </div>
+    <PageTransitionWrapper>
+      <div className={styles.container}>
+        <Recordings list={recordings} />
+      </div>
+    </PageTransitionWrapper>
   );
 };
 

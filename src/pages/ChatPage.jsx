@@ -1,7 +1,8 @@
-import { useEffect, useState , useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 import { askQuestions } from "@/lib/langchain";
 
 import styles from "./ChatPage.module.css";
+import PageTransitionWrapper from "@/components/PageTransitionWrapper";
 
 const ChatPage = () => {
   const [inputValue, setInputValue] = useState("");
@@ -43,30 +44,34 @@ const ChatPage = () => {
 
   return (
     <div>
-      <div className={styles.chat}>
-        <div className={styles.chatContent}>
-          {chatHistory.map((chatItem, index) => {
-            return (
-              <div
-                key={index}
-                ref={index === chatHistory.length - 1 ? latestMessageRef : null}
-              >
-                <p>{chatItem.content}</p>
-              </div>
-            );
-          })}
+      <PageTransitionWrapper>
+        <div className={styles.chat}>
+          <div className={styles.chatContent}>
+            {chatHistory.map((chatItem, index) => {
+              return (
+                <div
+                  key={index}
+                  ref={
+                    index === chatHistory.length - 1 ? latestMessageRef : null
+                  }
+                >
+                  <p>{chatItem.content}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className={styles.chatInput}>
-        <input
-          type="text"
-          id="inputField"
-          placeholder="Ask me something"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyUp={handleKeyUp}
-        />
-      </div>
+        <div className={styles.chatInput}>
+          <input
+            type="text"
+            id="inputField"
+            placeholder="Ask me something"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyUp={handleKeyUp}
+          />
+        </div>
+      </PageTransitionWrapper>
     </div>
   );
 };

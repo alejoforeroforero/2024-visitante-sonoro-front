@@ -3,11 +3,10 @@ import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import styles from "./MapPage.module.css";
+import PageTransitionWrapper from "@/components/PageTransitionWrapper";
 
 const CustomMarker = ({ onClick }) => (
-  <div className={styles.marker} onClick={onClick}>
-    
-  </div>
+  <div className={styles.marker} onClick={onClick}></div>
 );
 
 const MapPage = () => {

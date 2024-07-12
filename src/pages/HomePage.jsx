@@ -5,7 +5,9 @@ import { fetchRecordDetails } from "@/redux/states/recordingsActions";
 import { changeAudio } from "@/redux/states/audioPlayerSlice";
 import Player from "@/components/Player";
 import AudioVisualizer from "@/components/AudioVisualizer";
+import { AnimatePresence } from "framer-motion";
 
+import head from "@/assets/imgs/head.png";
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
@@ -25,7 +27,8 @@ const HomePage = () => {
 
   useEffect(() => {
     if (!firstRender) {
-      dispatch(changeAudio(recordDetails));    }
+      dispatch(changeAudio(recordDetails));
+    }
   }, [recordDetails]);
 
   useEffect(() => {
@@ -39,11 +42,16 @@ const HomePage = () => {
     <>
       <div className={styles.generalContent}>
         <div className={styles.mainContent}>
+          <div className={styles.logoHead}>
+            <img src={head} alt="" />
+          </div>
           <AudioVisualizer
             audioRef={audioRef}
             currentAudioSrc={currentAudioSrc}
           />
-          <Outlet />
+          <AnimatePresence mode="wait">
+            <Outlet />
+          </AnimatePresence>
         </div>
       </div>
       <div className={styles.audioPlayerContent}>

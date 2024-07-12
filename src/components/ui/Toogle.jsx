@@ -1,17 +1,18 @@
+import { useSelector } from "react-redux";
+import { FaSun, FaMoon } from "react-icons/fa";
 import styles from "./Toogle.module.css";
+import { useEffect, useState } from "react";
 
-const Toogle = ({ handleChange, isCheked }) => {
+const Toogle = ({ handleChange }) => {
+  const mode = useSelector((state) => state.audio.mode);
+
   return (
     <div className={styles.container}>
-      <input
-        type="checkbox"
-        name="check"
-        id="check"
-        className={styles.toogle}
-        onChange={handleChange}
-        checked={isCheked}
-      />
-      <label htmlFor="check"></label>
+      {mode ? (
+        <FaMoon onClick={handleChange} color="#fff" size={15} />
+      ) : (
+        <FaSun onClick={handleChange} color="#f1c40f" size={20} />
+      )}
     </div>
   );
 };

@@ -47,6 +47,7 @@ const AudioVisualizer = ({ audioRef, currentAudioSrc }) => {
     const canvasCtx = canvas.getContext("2d");
 
     const animateAudio = () => {
+      console.log('entra');
       if (!audioRef.current.paused) {
         if (!analyserRef.current || !dataArrayRef.current) return;
 
@@ -61,7 +62,7 @@ const AudioVisualizer = ({ audioRef, currentAudioSrc }) => {
         let prevY = canvas.height / 2;
 
         dataArrayRef.current.forEach((item) => {
-          barHeight = item / 3 + canvas.height / 4;
+          barHeight = item / 3 + canvas.height/2;
 
           canvasCtx.beginPath();
           canvasCtx.moveTo(prevX, prevY);
@@ -73,6 +74,8 @@ const AudioVisualizer = ({ audioRef, currentAudioSrc }) => {
           prevY = barHeight;
           x += barWidth + 1;
         });
+      }else{
+        canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       }
 
       frame1.current = requestAnimationFrame(animateAudio);

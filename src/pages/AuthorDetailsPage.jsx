@@ -5,22 +5,25 @@ import { fetchAuthorDetails } from "@/redux/states/authorsActions";
 import AuthorDetails from "@/components/AuthorDetails";
 
 import styles from "./AuthorDetailsPage.module.css";
+import PageTransitionWrapper from "@/components/PageTransitionWrapper";
 
 const AuthorDetailsPage = () => {
   const { authorId } = useParams();
   const authorDetails = useSelector((state) => state.authors.authorDetails);
   const dispatch = useDispatch();
 
-  console.log(authorDetails)
+  console.log(authorDetails);
 
   useEffect(() => {
     dispatch(fetchAuthorDetails(authorId));
   }, []);
 
   return (
-    <div className={styles.container}>
-      <AuthorDetails authorDetails={authorDetails}/>
-    </div>
+    <PageTransitionWrapper>
+      <div className={styles.container}>
+        <AuthorDetails authorDetails={authorDetails} />
+      </div>
+    </PageTransitionWrapper>
   );
 };
 

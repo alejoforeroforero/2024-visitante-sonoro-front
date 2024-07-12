@@ -10,13 +10,33 @@
 }
 
 .mainContent {
+  position: relative;
   padding-bottom: 60px;
   text-align: center;
 }
 
+.logoHead{
+  position: absolute;
+  left: 0;
+  top:0;
+  height: 200px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+
+  animation: fadeIn 5s forwards;
+
+  img{
+    height: 70%;
+    filter: sepia(10%) invert();
+  }
+}
+
 .audioPlayerContent {
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(65, 65, 65, 0.96);
   position: fixed;
   bottom: 0px;
   left: 0px;
@@ -26,4 +46,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
+  }
 }
