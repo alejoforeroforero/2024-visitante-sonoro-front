@@ -11,12 +11,23 @@ export const fetchRecordings = createAsyncThunk(
   }
 );
 
-export const fetchRecordDetails= createAsyncThunk(
+export const fetchRecordingsByCategory = createAsyncThunk(
+  "visitante/fetchRecordingsByCategory",
+  async (options) => {
+    const res = await visitanteApi.get(
+      `/api/v1/category/?category=${options.category}`,
+      {
+        params: options,
+      }
+    );
+    return res.data.results;
+  }
+);
+
+export const fetchRecordDetails = createAsyncThunk(
   "visitante/fetchRecordDetails",
   async (options) => {
-    const res = await visitanteApi.get(`/api/v1/recordings/${options}/`, {
-      
-    });
+    const res = await visitanteApi.get(`/api/v1/recordings/${options}/`, {});
     return res.data;
   }
 );

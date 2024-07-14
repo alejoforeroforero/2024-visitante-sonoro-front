@@ -1,0 +1,57 @@
+.container {
+  background-image: url("../../src/assets/imgs/victor-espinal.jpg");
+  width: 100vw;
+  display: flex;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: #fff;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* Adjust the last value (0.5) to control darkness */
+}
+
+.container > * {
+    position: relative;
+    z-index: 1;
+    color: white; /* Ensure content is visible on dark background */
+  }
+
+.left {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    width: 65%;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+}
+
+.right {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  video {
+    height: 80%;
+    border-radius: 12px;
+  }
+}

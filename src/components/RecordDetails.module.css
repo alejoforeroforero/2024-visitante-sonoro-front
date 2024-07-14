@@ -22,6 +22,15 @@
     margin: 40px;
   }
 
+  a {
+    font-size: 1rem;
+    color: var(--audio-categoria);
+    margin-left: 4px;
+    &:hover {
+      color: rgb(131, 191, 250);
+    }
+  }
+
   svg {
     height: 80px;
     width: 80px;
@@ -31,8 +40,8 @@
     color: var(--play-color);
     cursor: pointer;
 
-    &:hover{
-        background-color: rgb(117, 117, 117);
+    &:hover {
+      background-color: rgb(117, 117, 117);
     }
   }
 }

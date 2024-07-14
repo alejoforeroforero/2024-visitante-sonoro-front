@@ -11,10 +11,10 @@
 }
 
 .marker{
-    background-color: rgb(48, 184, 247);
+    background-color: rgb(225, 107, 125);
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 13px;
     cursor: pointer;
 }
 

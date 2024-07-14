@@ -9,19 +9,23 @@ import styles from "./NavBar.module.css";
 const NavBar = ({ isDark, setIsDark }) => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const handleChange = ()=>{
-    setIsDark(!isDark)
-  }
+  const handleChange = () => {
+    setIsDark(!isDark);
+  };
 
   return (
     <>
       <nav className={styles.container}>
         <div className={styles.logo}>
-          <img src={logo} alt="" />
-          <p>Visitante sonoro</p>
+          <Link onClick={() => setShowMenu(false)} to="/">
+            <img src={logo} alt="" />
+          </Link>
+          <Link onClick={() => setShowMenu(false)} to="/">
+            <p>Visitante sonoro</p>
+          </Link>
         </div>
         <div className={styles.dark}>
-          <Toogle isDark={{isDark}} handleChange={handleChange} />
+          <Toogle isDark={{ isDark }} handleChange={handleChange} />
         </div>
         <div className={styles.hamburguer}>
           <GiHamburgerMenu
@@ -32,9 +36,6 @@ const NavBar = ({ isDark, setIsDark }) => {
         </div>
         {showMenu && (
           <div className={styles.menu}>
-            <Link onClick={() => setShowMenu(false)} to="/">
-              Inicio
-            </Link>
             <Link onClick={() => setShowMenu(false)} to="/catalogo">
               Catalogo
             </Link>
@@ -47,7 +48,6 @@ const NavBar = ({ isDark, setIsDark }) => {
             <Link onClick={() => setShowMenu(false)} to="/chat">
               Chat
             </Link>
-            
           </div>
         )}
       </nav>

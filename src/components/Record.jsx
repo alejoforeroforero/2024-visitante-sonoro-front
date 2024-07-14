@@ -7,6 +7,8 @@ import styles from "./Record.module.css";
 const Record = ({ record }) => {
   const dispatch = useDispatch();
 
+  console.log(record);
+
   const handleChangeAudio = () => {
     dispatch(changeAudio(record));
   };
@@ -26,7 +28,7 @@ const Record = ({ record }) => {
       </div>
       <div>
         <h4>
-          Categoría:  <Link> {record.category}</Link>{" "}
+          Categoría: <Link to={`/catalogo/${record.categorySlug}`}> {record.category}</Link>
         </h4>
       </div>
       <div>

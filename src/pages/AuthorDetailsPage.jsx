@@ -12,8 +12,6 @@ const AuthorDetailsPage = () => {
   const authorDetails = useSelector((state) => state.authors.authorDetails);
   const dispatch = useDispatch();
 
-  console.log(authorDetails);
-
   useEffect(() => {
     dispatch(fetchAuthorDetails(authorId));
   }, []);

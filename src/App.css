@@ -15,3 +15,7 @@
   color: var(--btn--color);
 }
 
+.section-vh{
+  height: calc(100vh - 100px); /* 40px de header + 60px del player */
+}
+

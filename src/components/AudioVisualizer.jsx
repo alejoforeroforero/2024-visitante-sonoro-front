@@ -47,7 +47,6 @@ const AudioVisualizer = ({ audioRef, currentAudioSrc }) => {
     const canvasCtx = canvas.getContext("2d");
 
     const animateAudio = () => {
-      console.log('entra');
       if (!audioRef.current.paused) {
         if (!analyserRef.current || !dataArrayRef.current) return;
 

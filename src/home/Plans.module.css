@@ -1,0 +1,27 @@
+.container {
+  background-color: rgb(58, 81, 121);
+  padding: 40px;
+
+  h1 {
+    font-size: 4rem;
+    padding: 2%;
+    color: rgb(242, 242, 242);
+    text-align: left;
+  }
+
+  p {
+    font-size: 2rem;
+    padding: 2% 40% 2% 5%;
+    color: rgb(242, 242, 242);
+    text-align: left;
+  }
+
+  section {
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+}

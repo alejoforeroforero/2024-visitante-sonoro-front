@@ -3,6 +3,7 @@ import {
   fetchRecordings,
   fetchRecordDetails,
   fetchCategory,
+  fetchRecordingsByCategory
 } from "./recordingsActions";
 import axios from "axios";
 
@@ -43,6 +44,21 @@ const recordingsSlice = createSlice({
           state.recordDetails = action.payload;
         })
         .addCase(fetchRecordDetails.rejected, (state, action) => {
+          if (axios.isCancel(action.payload)) {
+            return;
+          }
+          state.status = "Failed!";
+          state.error = action.payload;
+        }),
+        builder
+        .addCase(fetchRecordingsByCategory.pending, (state) => {
+          state.status = "Loading...";
+        })
+        .addCase(fetchRecordingsByCategory.fulfilled, (state, action) => {
+          state.status = "Success";
+          state.recordings = action.payload;
+        })
+        .addCase(fetchRecordingsByCategory.rejected, (state, action) => {
           if (axios.isCancel(action.payload)) {
             return;
           }

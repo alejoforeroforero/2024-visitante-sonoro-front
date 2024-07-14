@@ -12,6 +12,7 @@ import RecordingsPage from "./pages/RecordingsPage";
 import AuthorsPage from "./pages/AuthorsPage";
 import LandingPage from "./pages/LandingPage";
 import MapPage from "./pages/MapPage";
+import CategoryPage from "./pages/CategoryPage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/catalogo",
         element: <RecordingsPage />,
+      },
+      {
+        path: "/catalogo/:category",
+        element: <CategoryPage />
       },
       {
         path: "/perfiles",
