@@ -14,7 +14,7 @@ const Trailer = () => {
         <p>{textoDescEs}</p>
       </div>
       <div className={styles.right}>
-        <video autoPlay={true} volume={0} loop={true} src={video}></video>
+        {/* <video autoPlay={true} volume={0} loop={true} src={video}></video> */}
       </div>
     </div>
   );
