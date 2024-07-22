@@ -1,0 +1,14 @@
+.changeMode{
+    display: flex;
+
+    a{
+        cursor: pointer;
+        margin-left: 6px;
+        color: rgb(76, 76, 227);
+    }
+}
+
+.invalid{
+    margin-top: 30px;
+    color: red;
+}

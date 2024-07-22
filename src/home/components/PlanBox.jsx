@@ -5,8 +5,8 @@ const PlanBox = ({title, benefits}) => {
     <div className={styles.container}>
       <h2>{title}</h2>
       <hr />
-      {benefits.map(benefit =>{
-        return <p>{benefit}</p>
+      {benefits.map((benefit, index) =>{
+        return <p key={index}>{benefit}</p>
       })}
       
     </div>

@@ -27,8 +27,12 @@ export const fetchRecordingsByCategory = createAsyncThunk(
 export const fetchRecordDetails = createAsyncThunk(
   "visitante/fetchRecordDetails",
   async (options) => {
-    const res = await visitanteApi.get(`/api/v1/recordings/${options}/`, {});
-    return res.data;
+    try {
+      const res = await visitanteApi.get(`/api/v1/recordings/${options}/`, {});
+      return res.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
   }
 );
 

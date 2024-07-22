@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import useLocalStorage from "use-local-storage";
 import { changeMode } from "./redux/states/audioPlayerSlice";
+import { autoSignin } from "./redux/states/userSlice";
 
 import NavBar from "@/components/NavBar";
 import IntroPage from "@/pages/IntroPage";
@@ -10,17 +11,26 @@ import "./App.css";
 import { useDispatch } from "react-redux";
 
 function App() {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const preference = window.matchMedia("(prefers-color-scheme:dark)").matches;
-  const [isDark, setIsDark] = useLocalStorage("isDark", preference);  
+  const [isDark, setIsDark] = useLocalStorage("isDark", preference);
   const [firstClick, setFirstClick] = useState(false);
+  const token = localStorage.getItem("token");
 
-  useEffect(()=>{
-    dispatch(changeMode(isDark))
-  }, [isDark])
+  console.log(token);
 
+  if (token) {
+    dispatch(autoSignin());
+  }
+
+  useLayoutEffect(()=>{
+    
+  })
+
+  useEffect(() => {    
+    dispatch(changeMode(isDark));
+  }, [isDark]);
 
   const handleFirstClick = () => {
     setFirstClick(true);
@@ -32,7 +42,7 @@ function App() {
       {firstClick && (
         <div className="App" data-theme={isDark ? "dark" : "light"}>
           <NavBar isDark={isDark} setIsDark={setIsDark} />
-          <HomePage />         
+          <HomePage />
         </div>
       )}
     </>

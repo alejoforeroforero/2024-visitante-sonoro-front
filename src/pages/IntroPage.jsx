@@ -4,6 +4,7 @@ import head from "@/assets/imgs/head.png";
 import headPhones from "@/assets/imgs/headphones.png";
 
 const IntroPage = ({ handleFirstClick }) => {
+  console.log('intro')
   return (
     <div className={styles.intro}>
       <div className={styles.head}>

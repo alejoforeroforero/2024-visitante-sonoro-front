@@ -1,36 +1,65 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsPlaying } from "@/redux/states/audioPlayerSlice";
 import { FaPlay, FaPause, FaStepForward, FaStepBackward } from "react-icons/fa";
 import styles from "./Player.module.css";
 
 const Player = ({ audioRef }) => {
+  const dispatch = useDispatch();
+
   const recordDetails = useSelector((state) => state.audio.recordDetails);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [currentTimeFormatted, setCurrentTimeFormatted] = useState(null);
   const [durationFormatted, setDurationFormatted] = useState("00:00");
   const [duration, setDuration] = useState(200);
   const [volumeWidth, setVolumeWidth] = useState(0);
+  const gIsPlaying = useSelector((state) => state.audio.isPlaying);
 
+  // useEffect(() => {
+  //   if (audioRef.current) {
 
-  useEffect(() => {
-    const setAudioData = () => {
-      setDuration(audioRef.current.duration);
-    };
+  //     if (audioRef.current.duration) {
+  //       const setAudioData = () => {
 
-    const setAudioTime = () => {
-      setCurrentTime(audioRef.current.currentTime);
-    };
+  //         setDuration(audioRef.current.duration);
+  //       };
 
-    audioRef.current.addEventListener("loadedmetadata", setAudioData);
-    audioRef.current.addEventListener("timeupdate", setAudioTime);
-    audioRef.current.volume = 0.1;
+  //       const setAudioTime = () => {
+  //         setCurrentTime(audioRef.current.currentTime);
+  //       };
 
-    return () => {
-      audioRef.current.removeEventListener("loadedmetadata", setAudioData);
-      audioRef.current.removeEventListener("timeupdate", setAudioTime);
-    };
-  }, [recordDetails]);
+  //       console.log(audioRef.current);
+
+  //       audioRef.current.addEventListener("loadedmetadata", setAudioData);
+  //       audioRef.current.addEventListener("timeupdate", setAudioTime);
+  //       audioRef.current.volume = 0.1;
+
+  //       return () => {
+  //         audioRef.current.removeEventListener("loadedmetadata", setAudioData);
+  //         audioRef.current.removeEventListener("timeupdate", setAudioTime);
+  //       };
+  //     }
+  //   }
+  // }, []);
+
+  console.log('jaja');
+
+  if (recordDetails?.audio) {
+    if (audioRef.current) {
+      if (audioRef.current.duration) {
+        const setAudioData = () => {
+          setDuration(audioRef.current.duration);
+        };
+
+        const setAudioTime = () => {
+          setCurrentTime(audioRef.current.currentTime);
+        };
+        audioRef.current.addEventListener("loadedmetadata", setAudioData);
+        audioRef.current.addEventListener("timeupdate", setAudioTime);
+        audioRef.current.volume = 0.1;
+      }
+    }
+  }
 
   useEffect(() => {
     setCurrentTimeFormatted(formatTime(audioRef.current.currentTime));
@@ -41,13 +70,17 @@ const Player = ({ audioRef }) => {
 
   const handleOnPlay = () => {
     if (audioRef.current.paused) {
-      audioRef.current.play();
-      setIsPlaying(true);
+      dispatch(setIsPlaying(true));
     } else {
-      audioRef.current.pause();
-      setIsPlaying(false);
+      dispatch(setIsPlaying(false));
     }
   };
+
+  if (gIsPlaying) {
+    audioRef.current?.play();
+  } else {
+    audioRef.current?.pause();
+  }
 
   const handleProgressClick = (event) => {
     const progressBar = event.target;
@@ -89,15 +122,15 @@ const Player = ({ audioRef }) => {
       <div className={styles.controls}>
         <audio
           ref={audioRef}
-          src={recordDetails.audio}
+          src={recordDetails?.audio}
           controls
           crossOrigin="anonymous"
           autoPlay
         />
         <div className={styles.buttons}>
           <FaStepBackward color="white" />
-          {isPlaying && <FaPause onClick={handleOnPlay} color="white" />}
-          {!isPlaying && <FaPlay onClick={handleOnPlay} color="white" />}
+          {gIsPlaying && <FaPause onClick={handleOnPlay} color="white" />}
+          {!gIsPlaying && <FaPlay onClick={handleOnPlay} color="white" />}
           <FaStepForward color="white" />
         </div>
         <div className={styles.progress}>
@@ -123,7 +156,7 @@ const Player = ({ audioRef }) => {
           <div className={styles.volumeBG}>
             <div
               className={styles.currentVolume}
-              style={{ width: volumeWidth ? volumeWidth : '100%' }}
+              style={{ width: volumeWidth ? volumeWidth : "100%" }}
             ></div>
           </div>
         </div>

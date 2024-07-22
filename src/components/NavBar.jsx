@@ -1,16 +1,24 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { signout } from "@/redux/states/userActions";
 import Toogle from "@/components/ui/Toogle";
 
+import { GiHamburgerMenu } from "react-icons/gi";
 import logo from "@/assets/imgs/head.png";
 import styles from "./NavBar.module.css";
 
 const NavBar = ({ isDark, setIsDark }) => {
   const [showMenu, setShowMenu] = useState(false);
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   const handleChange = () => {
     setIsDark(!isDark);
+  };
+
+  const handleSignout = () => {
+    dispatch(signout(user.token));
   };
 
   return (
@@ -25,6 +33,15 @@ const NavBar = ({ isDark, setIsDark }) => {
           </Link>
         </div>
         <div className={styles.dark}>
+          <div className={styles.auth}>
+            {!user.token && (
+              <>
+                <Link to="auth">Sign up</Link>
+                <Link to="auth">Sign in</Link>
+              </>
+            )}
+            {user.token && <p onClick={handleSignout}>Log out</p>}
+          </div>
           <Toogle isDark={{ isDark }} handleChange={handleChange} />
         </div>
         <div className={styles.hamburguer}>

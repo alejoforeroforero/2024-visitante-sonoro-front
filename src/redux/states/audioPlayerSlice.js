@@ -4,7 +4,8 @@ const initialState = {
   title: "Cancion default",
   audioSrc: "",
   recordDetails: {},
-  mode:'',
+  isPlaying: true,
+  mode: "",
   error: null,
   status: "idle",
 };
@@ -14,14 +15,17 @@ const audioPlayerSlice = createSlice({
   initialState,
   reducers: {
     changeAudio: (state, action) => {
-      //state.audioSrc = action.payload.audio;
       state.recordDetails = action.payload;
     },
-    changeMode: (state, action) =>{
-      state.mode = action.payload
-    }
+    setIsPlaying: (state, action) => {
+      state.isPlaying = action.payload;
+    },
+    changeMode: (state, action) => {
+      state.mode = action.payload;
+    },
   },
 });
 
-export const { changeAudio, changeMode } = audioPlayerSlice.actions;
+export const { changeAudio, changeMode, setIsPlaying } =
+  audioPlayerSlice.actions;
 export default audioPlayerSlice.reducer;
