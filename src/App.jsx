@@ -18,7 +18,6 @@ function App() {
   const [firstClick, setFirstClick] = useState(false);
   const token = localStorage.getItem("token");
 
-  console.log(token);
 
   if (token) {
     dispatch(autoSignin());

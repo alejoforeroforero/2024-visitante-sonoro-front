@@ -11,6 +11,9 @@ const __dirname = dirname(__filename);
 export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.md'],
+  server: {
+    host: 'localhost',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

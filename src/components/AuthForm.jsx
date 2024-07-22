@@ -2,12 +2,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { changeMode } from "@/redux/states/userSlice";
-import { login, signup } from "@/redux/states/userActions";
+import { login, signup, loginWithGoogle } from "@/redux/states/userActions";
 
-import { GoogleLogin } from '@react-oauth/google';
-import { styled } from '@mui/system';
-import GoogleIcon from '@mui/icons-material/Google';
-
+import { GoogleLogin } from "@react-oauth/google";
+import { styled } from "@mui/system";
+import GoogleIcon from "@mui/icons-material/Google";
 
 import {
   Container,
@@ -22,10 +21,10 @@ import styles from "./AuthForm.module.css";
 
 const StyledGoogleButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(2),
-  backgroundColor: '#4285F4',
-  color: 'white',
-  '&:hover': {
-    backgroundColor: '#357ae8',
+  backgroundColor: "#4285F4",
+  color: "white",
+  "&:hover": {
+    backgroundColor: "#357ae8",
   },
 }));
 
@@ -54,12 +53,13 @@ const AuthForm = () => {
     dispatch(changeMode());
   };
 
-   const handleGoogleSuccess = (credentialResponse) => {
+  const handleGoogleSuccess = (credentialResponse) => {
+    debugger;
     dispatch(loginWithGoogle(credentialResponse));
   };
 
   const handleGoogleError = () => {
-    console.error('Google Sign In was unsuccessful. Try again later');
+    console.error("Google Sign In was unsuccessful. Try again later");
   };
 
   return (
@@ -166,18 +166,18 @@ const AuthForm = () => {
         )}
       </div>
       <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={handleGoogleError}
-          render={({ onClick }) => (
-            <StyledGoogleButton
-              fullWidth
-              onClick={onClick}
-              startIcon={<GoogleIcon />}
-            >
-              Sign in with Google
-            </StyledGoogleButton>
-          )}
-        />
+        onSuccess={handleGoogleSuccess}
+        onError={handleGoogleError}
+        render={({ onClick }) => (
+          <StyledGoogleButton
+            fullWidth
+            onClick={onClick}
+            startIcon={<GoogleIcon />}
+          >
+            Sign in with Google
+          </StyledGoogleButton>
+        )}
+      />
 
       <p className={styles.invalid}>{user.message}</p>
     </Container>

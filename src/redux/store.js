@@ -4,7 +4,7 @@ import authorsSlice from "./states/authorsSlice";
 import audioSlice from "./states/audioPlayerSlice";
 import userSlice from "./states/userSlice";
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     recordings: recordingsSlice,
     authors: authorsSlice,
@@ -12,3 +12,5 @@ export default configureStore({
     user:userSlice
   },
 });
+
+export default store;
