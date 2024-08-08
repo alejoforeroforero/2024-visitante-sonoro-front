@@ -1,14 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeAudio, setIsPlaying } from "@/redux/states/audioPlayerSlice";
 import { Link } from "react-router-dom";
 import { FaPlay, FaPause, FaHeart } from "react-icons/fa";
+import { changeAudio, setIsPlaying } from "@/redux/states/audioPlayerSlice";
+import {
+  saveFavorite,
+  deleteFavorite,
+  getUserInfo,
+} from "@/redux/states/userActions";
+import useErrorHandler from "@/hooks/useErrorHandler";
+
 import styles from "./Record.module.css";
+import { toast } from "react-toastify";
 
 const Record = ({ record }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   const currentAudioDetails = useSelector((state) => state.audio.recordDetails);
   const gIsPlaying = useSelector((state) => state.audio.isPlaying);
+  const { errorAction } = useErrorHandler();
 
   const handleChangeAudio = () => {
     if (currentAudioDetails.id == record.id) {
@@ -36,16 +45,70 @@ const Record = ({ record }) => {
     }
   };
 
+  const handleSaveFavorite = (recordId) => {
+    const afterSave = (error, res) => {
+      if (error) {
+        errorAction();
+      } else {
+        toast('Se ha agregado de favoritos')
+        dispatch(getUserInfo());
+      }
+    };
+
+    const data = {
+      record_id: recordId,
+    };
+
+    const dataObj = {
+      data,
+      callback: afterSave,
+    };
+
+    dispatch(saveFavorite(dataObj));
+  };
+
+  const handleDeleteFavorite = (recordId) => {
+    const afterDelete = (error, res) => {
+
+      if (error) {
+        errorAction();
+      } else {
+        toast('Se ha eliminado de favoritos')
+        dispatch(getUserInfo());
+      }
+    };
+
+    const data = {
+      record_id: recordId,
+    };
+
+    const dataObj = {
+      data,
+      callback: afterDelete,
+    };
+
+    dispatch(deleteFavorite(dataObj));
+  };
+
   return (
     <div className={styles.recordBox}>
       {checkFavorite(record.id) && (
         <span>
-          <FaHeart color='#ef6161' />
+          <FaHeart
+            onClick={() => {
+              handleDeleteFavorite(record.id);
+            }}
+            color="#ef6161"
+          />
         </span>
       )}
       {!checkFavorite(record.id) && (
         <span>
-          <FaHeart />
+          <FaHeart
+            onClick={() => {
+              handleSaveFavorite(record.id);
+            }}
+          />
         </span>
       )}
 

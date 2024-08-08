@@ -90,6 +90,34 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const saveFavorite = createAsyncThunk(
+  "user/savefavorite",
+  async (dataObj, { rejectWithValue }) => {
+    try {
+      const response = await visitanteApi.post("auth/favorites/", dataObj.data);
+      dataObj.callback(false, response);
+    } catch (error) {
+      dataObj.callback(true, error);
+    }
+  }
+);
+
+export const deleteFavorite = createAsyncThunk(
+  "user/deleteFavorite",
+  async (dataObj, { rejectWithValue }) => {
+    try {
+      const response = await visitanteApi.delete(`auth/favorites/`, {
+        data: {
+          record_id: dataObj.data["record_id"],
+        },
+      });
+      dataObj.callback(false, response);
+    } catch (error) {
+      dataObj.callback(true, error);
+    }
+  }
+);
+
 export const uploadProfileImage = createAsyncThunk(
   "profile/uploadProfileImage",
   async (data, { getState, rejectWithValue }) => {

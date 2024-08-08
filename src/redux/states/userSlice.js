@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, signup, signout, getUserInfo } from "./userActions";
+import {
+  login,
+  signup,
+  signout,
+  getUserInfo,
+  saveFavorite,
+  deleteFavorite,
+} from "./userActions";
 
 import axios from "axios";
 
 const initialState = {
-  firstClick:false,
+  firstClick: false,
   data: null,
   googleUser: false,
   isAuthorized: null,
@@ -20,12 +27,12 @@ const userSlice = createSlice({
     changeMode: (state, action) => {
       state.signingUp = !state.signingUp;
     },
-    setFirstClick:(state, action) =>{
+    setFirstClick: (state, action) => {
       state.firstClick = action.payload;
     },
     authUser: (state, action) => {
       state.isAuthorized = action.payload;
-      if(!action.payload){
+      if (!action.payload) {
         state.data = null;
       }
     },
@@ -59,9 +66,7 @@ const userSlice = createSlice({
           state.status = "Loading...";
         })
         .addCase(login.fulfilled, (state, action) => {
-          // if(action.payload.success){
-          //   state.isAuthorized = true;
-          // } 
+          state.status = "succeeded";
         })
         .addCase(login.rejected, (state, action) => {
           if (axios.isCancel(action.payload)) {
@@ -95,9 +100,30 @@ const userSlice = createSlice({
           state.loading = false;
           state.user = null;
           state.error = action.payload;
+        }),
+      builder
+        .addCase(saveFavorite.pending, (state) => {
+          state.status = "loading";
+        })
+        .addCase(saveFavorite.fulfilled, (state, action) => {
+          state.status = "succeeded";
+        })
+        .addCase(saveFavorite.rejected, (state, action) => {
+          state.status = "failed";
+        }),
+      builder
+        .addCase(deleteFavorite.pending, (state) => {
+          state.status = "loading";
+        })
+        .addCase(deleteFavorite.fulfilled, (state, action) => {
+          state.status = "succeeded";
+        })
+        .addCase(deleteFavorite.rejected, (state, action) => {
+          state.status = "failed";
         });
   },
 });
 
-export const { changeMode, autoSignin, authUser, setFirstClick } = userSlice.actions;
+export const { changeMode, autoSignin, authUser, setFirstClick } =
+  userSlice.actions;
 export default userSlice.reducer;
