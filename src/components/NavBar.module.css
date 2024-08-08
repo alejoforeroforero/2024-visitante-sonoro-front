@@ -2,11 +2,12 @@
   left: 0px;
   top: 0px;
   position: fixed;
-  height: 40px;
-  max-height: 40px;
+  max-height: 50px;
   background-color: var(--nav-bg);
   display: flex;
+  justify-content: space-between;
   z-index: 2;
+  width: 100vw;
 
   a {
     color: var(--primary-text-color);
@@ -16,11 +17,11 @@
   }
 }
 
-.logo {
-  width: 60vw;
+.nav-bar-left {
   display: flex;
   align-items: center;
   justify-content: left;
+  width: 25%;
 
   a {
     height: 100%;
@@ -41,13 +42,27 @@
   }
 }
 
-.dark {
-  width: calc(40vw - 40px - 3vw);
-  position: relative;
+.nav-bar-center {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 80%;
+    margin-left: 10px;
+  }
+}
+
+.nav-bar-right {
+  width: 50%;
+  display: flex;
+  justify-content: right;
 }
 
 .auth {
   height: 100%;
+  height: 50px;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -55,20 +70,39 @@
   a {
     font-size: 1rem;
     cursor: pointer;
+    text-transform: uppercase;
+    margin: auto;
   }
 
-  p{
+  p {
     font-size: 1rem;
     cursor: pointer;
   }
+
+  img {
+    border: 2px solid #c4c4c4;
+    max-width: 60px;
+    max-height: 40px;
+    margin: auto;
+  }
+
+  svg {
+    height: 30px;
+    width: 40px;
+  }
+}
+
+.dark {
+  position: relative;
+  width: 60px;
 }
 
 .hamburguer {
-  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 3vw;
+  width: 60px;
+  margin-right: 2.5vw;
 
   svg {
     cursor: pointer;
@@ -78,7 +112,7 @@
 .menu {
   position: absolute;
   right: 2.5vw;
-  top: 52px;
+  top: 62px;
   display: flex;
   flex-direction: column;
   background-color: var(--nav-bg);
@@ -91,6 +125,10 @@
     &&:hover {
       color: rgb(102, 132, 222);
     }
+  }
+
+  hr {
+    margin: 10px 0px 4px;
   }
 }
 

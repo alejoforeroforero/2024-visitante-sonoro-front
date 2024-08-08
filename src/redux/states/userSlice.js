@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, signup, signout } from "./userActions";
+import { login, signup, signout, getUserInfo } from "./userActions";
 
 import axios from "axios";
 
 const initialState = {
-  info: null,
-  token:null,
-  isLogin: false,
-  signingUp: true,
+  firstClick:false,
+  data: null,
+  googleUser: false,
+  isAuthorized: null,
+  loading: false,
   error: null,
-  message: "",
-  status: "idle",
+  successMessage: null,
 };
 
 const userSlice = createSlice({
@@ -20,9 +20,18 @@ const userSlice = createSlice({
     changeMode: (state, action) => {
       state.signingUp = !state.signingUp;
     },
-    autoSignin: (state, action) =>{
-      state.token = localStorage.getItem('token')
-    }
+    setFirstClick:(state, action) =>{
+      state.firstClick = action.payload;
+    },
+    authUser: (state, action) => {
+      state.isAuthorized = action.payload;
+      if(!action.payload){
+        state.data = null;
+      }
+    },
+    autoSignin: (state, action) => {
+      state.token = localStorage.getItem("token");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -35,7 +44,7 @@ const userSlice = createSlice({
         if (action.payload.data.success) {
           state.info = action.payload.data.user;
           state.token = action.payload.data.token;
-          localStorage.setItem('token', action.payload.data.token);
+          localStorage.setItem("token", action.payload.data.token);
         }
       })
       .addCase(signup.rejected, (state, action) => {
@@ -50,13 +59,9 @@ const userSlice = createSlice({
           state.status = "Loading...";
         })
         .addCase(login.fulfilled, (state, action) => {
-          state.message = action.payload.data.message;
-          state.status = action.payload.data.success;
-          if (action.payload.data.success) {
-            state.info = action.payload.data.user;
-            state.token = action.payload.data.token;
-            localStorage.setItem('token', action.payload.data.token);
-          }
+          // if(action.payload.success){
+          //   state.isAuthorized = true;
+          // } 
         })
         .addCase(login.rejected, (state, action) => {
           if (axios.isCancel(action.payload)) {
@@ -66,28 +71,33 @@ const userSlice = createSlice({
           state.error = action.payload;
         }),
       builder
-        .addCase(signout.pending, (state) => {
-          state.status = "Loading...";
+        .addCase(getUserInfo.pending, (state) => {
+          state.status = "loading";
         })
-        .addCase(signout.fulfilled, (state, action) => {
-          state.message = action.payload.data.message;
-          state.status = action.payload.data.success;
-          if (action.payload.data.success) {
-
-            state.info = null;
-            state.token = null;
-            localStorage.removeItem('token');
-          }
+        .addCase(getUserInfo.fulfilled, (state, action) => {
+          state.status = "succeeded";
+          state.data = action.payload?.data;
+        })
+        .addCase(getUserInfo.rejected, (state, action) => {
+          state.status = "failed";
+          state.error = action.payload;
+        }),
+      builder
+        .addCase(signout.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(signout.fulfilled, (state) => {
+          state.loading = false;
+          state.user = null;
+          state.successMessage = "Logout successful!";
         })
         .addCase(signout.rejected, (state, action) => {
-          if (axios.isCancel(action.payload)) {
-            return;
-          }
-          state.status = "Failed!";
+          state.loading = false;
+          state.user = null;
           state.error = action.payload;
         });
   },
 });
 
-export const { changeMode, autoSignin } = userSlice.actions;
+export const { changeMode, autoSignin, authUser, setFirstClick } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { changeMode } from "@/redux/states/userSlice";
-import { login, signup, loginWithGoogle } from "@/redux/states/userActions";
+import { login, signup } from "@/redux/states/userActions";
+import LoginGoogle from "@/components/auth/LoginGoogle";
 
-import { GoogleLogin } from "@react-oauth/google";
-import { styled } from "@mui/system";
-import GoogleIcon from "@mui/icons-material/Google";
 
 import {
   Container,
@@ -19,18 +18,11 @@ import {
 
 import styles from "./AuthForm.module.css";
 
-const StyledGoogleButton = styled(Button)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  backgroundColor: "#4285F4",
-  color: "white",
-  "&:hover": {
-    backgroundColor: "#357ae8",
-  },
-}));
 
 const AuthForm = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     control,
@@ -40,8 +32,27 @@ const AuthForm = () => {
   const [message, setMessage] = useState("");
 
   const onSubmit = async (data) => {
+
+    const confirmation = (res)=>{     
+      if(res.data.success){     
+        navigate('/')
+      }
+      else{
+        alert('revisar que paso')
+      }
+    }
+
+    const dataObj = {
+      user:{
+        "username":data.email,
+        "email":data.email,
+        "password":data.password
+      },
+      callback:confirmation
+    }
+
     try {
-      const action = user.signingUp ? signup(data) : login(data);
+      const action = user.signingUp ? signup(data) : login(dataObj);
       dispatch(action);
       setMessage("Operation successful!");
     } catch (error) {
@@ -53,14 +64,13 @@ const AuthForm = () => {
     dispatch(changeMode());
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
-    debugger;
-    dispatch(loginWithGoogle(credentialResponse));
-  };
+  // const handleGoogleSuccess = (credentialResponse) => {
+  //   dispatch(loginWithGoogle(credentialResponse));
+  // };
 
-  const handleGoogleError = () => {
-    console.error("Google Sign In was unsuccessful. Try again later");
-  };
+  // const handleGoogleError = () => {
+  //   console.error("Google Sign In was unsuccessful. Try again later");
+  // };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -165,21 +175,10 @@ const AuthForm = () => {
           </>
         )}
       </div>
-      <GoogleLogin
-        onSuccess={handleGoogleSuccess}
-        onError={handleGoogleError}
-        render={({ onClick }) => (
-          <StyledGoogleButton
-            fullWidth
-            onClick={onClick}
-            startIcon={<GoogleIcon />}
-          >
-            Sign in with Google
-          </StyledGoogleButton>
-        )}
-      />
 
       <p className={styles.invalid}>{user.message}</p>
+
+      <LoginGoogle />
     </Container>
   );
 };

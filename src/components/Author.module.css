@@ -1,5 +1,6 @@
 .authorBox {
   width: 100%;
+  max-width: 540px;
   height: 550px;
   overflow: hidden;
   background-color: var(--author-bg-color);

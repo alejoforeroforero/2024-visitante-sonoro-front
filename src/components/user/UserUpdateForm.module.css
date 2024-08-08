@@ -1,0 +1,29 @@
+.user-form {
+  padding: 20px;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  label {
+    width: 200px;
+    margin-right: 0px;
+  }
+
+  input {
+    width: 60%;
+  }
+
+  textarea {
+    width: 60%;
+    height: 200px;
+  }
+
+  button {
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+}

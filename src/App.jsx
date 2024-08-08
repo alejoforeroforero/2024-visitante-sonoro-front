@@ -1,42 +1,56 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useLocalStorage from "use-local-storage";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { changeMode } from "./redux/states/audioPlayerSlice";
-import { autoSignin } from "./redux/states/userSlice";
+import { authUser, setFirstClick } from "./redux/states/userSlice";
+import { getUserInfo } from "./redux/states/userActions";
+import { ToastContainer } from "react-toastify";
 
 import NavBar from "@/components/NavBar";
 import IntroPage from "@/pages/IntroPage";
 import HomePage from "./pages/HomePage";
 
 import "./App.css";
-import { useDispatch } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   const dispatch = useDispatch();
 
   const preference = window.matchMedia("(prefers-color-scheme:dark)").matches;
   const [isDark, setIsDark] = useLocalStorage("isDark", preference);
-  const [firstClick, setFirstClick] = useState(false);
-  const token = localStorage.getItem("token");
+  const firstClick = useSelector((state) => state.user.firstClick);
+  const isAuthorized = useSelector((state) => state.user.isAuthorized);
 
+  useEffect(() => {
+    const accessToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("access_token="))
+      ?.split("=")[1];
 
-  if (token) {
-    dispatch(autoSignin());
-  }
+    if (accessToken) {
+      dispatch(authUser(true));
+    }
+  }, []);
 
-  useLayoutEffect(()=>{
-    
-  })
+  useEffect(() => {
+    if (isAuthorized) {
+      dispatch(getUserInfo());
+    }
+  }, [isAuthorized]);
 
-  useEffect(() => {    
+  useEffect(() => {
     dispatch(changeMode(isDark));
   }, [isDark]);
 
   const handleFirstClick = () => {
-    setFirstClick(true);
+    dispatch(setFirstClick(true));
   };
 
   return (
     <>
+      <ToastContainer />
       {!firstClick && <IntroPage handleFirstClick={handleFirstClick} />}
       {firstClick && (
         <div className="App" data-theme={isDark ? "dark" : "light"}>

@@ -1,5 +1,5 @@
-import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom";
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useSelector } from "react-redux";
 import App from "./App";
 import RecordDetailsPage from "./pages/RecordDetailsPage";
 import AuthorDetailsPage from "./pages/AuthorDetailsPage";
@@ -11,24 +11,14 @@ import LandingPage from "./pages/LandingPage";
 import MapPage from "./pages/MapPage";
 import CategoryPage from "./pages/CategoryPage";
 import AuthPage from "./pages/AuthPage";
+import NotAllowedPage from "./pages/NotAllowedPage";
+import EditUserProfilePage from "./pages/user/EditUserProfilePage";
+import UserProfilePage from "./pages/user/UserProfilePage";
 
-const isAuthenticated = () => {
-  return localStorage.getItem('token') !== null;
-};
-
-const authLoader = () => {
-  if (isAuthenticated()) {
-    return redirect("/");
-  }
-  return null;
-};
-
-const protectedLoader = () => {
-  if (!isAuthenticated()) {
-    return redirect("/auth");
-  }
-  return null;
-};
+function ProtectedRoute({ children }) {
+  const isAuthenticated = useSelector((state) => state.user.isAuthorized);
+  return isAuthenticated ? children : <NotAllowedPage />;
+}
 
 const router = createBrowserRouter([
   {
@@ -46,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "catalogo/:category",
-        element: <CategoryPage />
+        element: <CategoryPage />,
       },
       {
         path: "perfiles",
@@ -62,20 +52,38 @@ const router = createBrowserRouter([
       },
       {
         path: "mapa",
-        element: <MapPage />
+        element: <MapPage />,
       },
       {
         path: "chat",
-        element: <ChatPage />,
-        loader: protectedLoader,
+        element: (
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        ),
       },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <UserProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "edit-profile",
+        element: (
+          <ProtectedRoute>
+            <EditUserProfilePage />
+          </ProtectedRoute>
+        ),
+      }
     ],
   },
   {
     path: "auth",
     element: <AuthPage />,
     errorElement: <NotFoundPage />,
-    loader: authLoader
   },
 ]);
 

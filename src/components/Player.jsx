@@ -42,8 +42,6 @@ const Player = ({ audioRef }) => {
   //   }
   // }, []);
 
-  console.log('jaja');
-
   if (recordDetails?.audio) {
     if (audioRef.current) {
       if (audioRef.current.duration) {
@@ -112,6 +110,17 @@ const Player = ({ audioRef }) => {
     return `${min}:${secs}`;
   };
 
+  const getAudioSrc = (audioSrc) => {
+    let audioPath = audioSrc;
+    const baseURL = import.meta.env.VITE_BASE_URL_BACKEND;
+
+    if (!audioPath.startsWith("http")) {
+      audioPath = baseURL + audioPath;
+    }
+
+    return audioPath;
+  };
+
   return (
     <div className={styles.player}>
       <div className={styles.info}>
@@ -122,7 +131,7 @@ const Player = ({ audioRef }) => {
       <div className={styles.controls}>
         <audio
           ref={audioRef}
-          src={recordDetails?.audio}
+          src={recordDetails?.audio ? getAudioSrc(recordDetails?.audio) : ""}
           controls
           crossOrigin="anonymous"
           autoPlay

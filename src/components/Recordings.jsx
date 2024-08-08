@@ -3,7 +3,6 @@ import Record from "./Record";
 import styles from "./Recordings.module.css";
 
 const Recordings = ({ list }) => {
-
   return (
     <div className={styles.recordsInnerContainer}>
       {list?.length > 0 ? (

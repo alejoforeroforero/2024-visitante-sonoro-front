@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { FaSun, FaMoon } from "react-icons/fa";
 import styles from "./Toogle.module.css";
-import { useEffect, useState } from "react";
+
 
 const Toogle = ({ handleChange }) => {
   const mode = useSelector((state) => state.audio.mode);

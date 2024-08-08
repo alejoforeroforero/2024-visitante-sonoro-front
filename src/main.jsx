@@ -10,14 +10,10 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId='40425782780-tbn9kte2rn355q67jouqs4165vs6shre.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <Provider store={store}>
         <Router />
       </Provider>
     </GoogleOAuthProvider>
-
-    {/* <Provider store={store}>
-      <Router />
-    </Provider> */}
   </React.StrictMode>
 );

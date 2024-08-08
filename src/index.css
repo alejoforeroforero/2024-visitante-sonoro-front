@@ -25,11 +25,15 @@
   --btn-bg-color: #329cfa;
   --btn--color: #ffffff;
 
+  --link-color:#329cfa;
+
   --play-color: #e4dbdb;
   --audio-box-bg: #e5dddd;
   --audio-play-bg: #718487;
   --audio-title:#2c5d92;
   --audio-categoria:#4a96e7;
+
+  --input-bg-color:#454545;
 
   --author-bg-color: rgb(216, 216, 216);
 }
@@ -47,14 +51,18 @@
   --toogle-bg: #3a4cc1;
   --toogle-fg: #1c93ee;
 
-  --btn-bg-color: #ffffff;
-  --btn--color: #329cfa;
+  --btn-bg-color: #4a7bd4;
+  --btn--color: #dce9f5;
+
+  --link-color:#329cfa;
 
   --play-color: #ffffff;
   --audio-box-bg: #4e4e55;
   --audio-play-bg: #80b9c0;
   --audio-title:#4da0f9;
   --audio-categoria:#4a96e7;
+
+  --input-bg-color:#454545;
 
   --author-bg-color: rgb(71, 71, 71);
 }
@@ -84,6 +92,11 @@ p {
   font-size: 1rem;
 }
 
+label{
+  color: var(--primary-text-color);
+  font-size: 1rem;
+}
+
 a {
   text-decoration: none;
 }
@@ -95,4 +108,24 @@ button {
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
+
+  &:hover{
+    background-color: rgb(18, 57, 80);
+  }
+}
+
+input{
+  padding: 10px 14px;
+  background-color: var(--input-bg-color);
+  border:none;
+  border-radius: 12px;
+  color:var(--primary-text-color);
+}
+
+textarea{
+  padding: 10px 14px;
+  background-color: var(--input-bg-color);
+  border:none;
+  border-radius: 12px;
+  color:var(--primary-text-color);
 }
