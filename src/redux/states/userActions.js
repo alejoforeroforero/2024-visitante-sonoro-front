@@ -1,16 +1,6 @@
 import { visitanteApi } from "@/api/visitante.api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getUserInfo = createAsyncThunk("auth/getUserInfo", async () => {
-  try {
-    const response = await visitanteApi.get("auth/user/");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    throw error;
-  }
-});
-
 export const signup = createAsyncThunk("visitante/signup", async (dataObj) => {
   const info = {
     username: dataObj.user.email,
@@ -48,12 +38,21 @@ export const login = createAsyncThunk("visitante/login", async (dataObj) => {
 export const googleSignIn = createAsyncThunk(
   "auth/googleSignIn",
   async (data) => {
-    const token = data.token;
-    const response = await visitanteApi.post("auth/google-signin/", {
-      token,
-    });
-    data.callback();
-    return response.data;
+    try {
+      const token = data.token;
+      const response = await visitanteApi.post("auth/google-signin/", {
+        token,
+      });
+      data.callback(false, response.data);
+    } catch (error) {
+      const res = {
+        message:
+          error.response.data.error ||
+          "Se produjo un inconveniente al iniciar sesión",
+      };
+
+      data.callback(true, res);
+    }
   }
 );
 
@@ -68,6 +67,16 @@ export const signout = createAsyncThunk(
     }
   }
 );
+
+export const getUserInfo = createAsyncThunk("auth/getUserInfo", async () => {
+  try {
+    const response = await visitanteApi.get("auth/user/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+});
 
 export const updateUser = createAsyncThunk(
   "user/updateUser",
@@ -95,7 +104,7 @@ export const saveFavorite = createAsyncThunk(
 
 export const deleteFavorite = createAsyncThunk(
   "user/deleteFavorite",
-  async (dataObj, { rejectWithValue }) => {
+  async (dataObj) => {
     try {
       const response = await visitanteApi.delete(`auth/favorites/`, {
         data: {
@@ -111,7 +120,7 @@ export const deleteFavorite = createAsyncThunk(
 
 export const uploadProfileImage = createAsyncThunk(
   "profile/uploadProfileImage",
-  async (data, { getState, rejectWithValue }) => {
+  async (data) => {
     try {
       const formData = new FormData();
       formData.append("profile_picture", data.file);
@@ -121,24 +130,13 @@ export const uploadProfileImage = createAsyncThunk(
         formData
       );
 
-      if (response.data && response.data.profile_picture) {
-        //return response.data.profile_picture;
-        data.callback();
-      } else {
-        throw new Error("Invalid response format");
-      }
+      data.callback(false, response.data);
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        return rejectWithValue(error.response.data);
-      } else if (error.request) {
-        // The request was made but no response was received
-        return rejectWithValue("No response received from server");
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        return rejectWithValue(error.message);
+      console.log(error);
+      const res = {
+        message: 'Lo sentimos, se ha producido un error inesperado en el sistema. Por seguridad, serás redirigido a la página de autorización'
       }
+      data.callback(true, res);
     }
   }
 );

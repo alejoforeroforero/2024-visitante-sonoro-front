@@ -37,15 +37,14 @@ const AuthForm = () => {
   const [message, setMessage] = useState("");
 
   const onSubmit = async (data) => {
-    const afterSave = (error, res) => {
+    const afterSubmit = (error, res) => {
       if (error) {
         errorAction(res.message);
       } else {
         toast(res.message);
         setTimeout(() => {
-          navigate('/')
+          navigate("/");
         }, 3000);
-        //dispatch(getUserInfo());
       }
     };
 
@@ -55,7 +54,7 @@ const AuthForm = () => {
         email: data.email,
         password: data.password,
       },
-      callback: afterSave,
+      callback: afterSubmit,
     };
 
     try {

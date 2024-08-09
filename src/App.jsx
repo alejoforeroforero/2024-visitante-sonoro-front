@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { changeMode } from "./redux/states/audioPlayerSlice";
-import { authUser, setFirstClick } from "./redux/states/userSlice";
+import { setFirstClick } from "./redux/states/userSlice";
 import { getUserInfo } from "./redux/states/userActions";
 import { ToastContainer } from "react-toastify";
+
+import useAuth from "@/hooks/useAuth";
 
 import NavBar from "@/components/NavBar";
 import IntroPage from "@/pages/IntroPage";
@@ -23,16 +25,7 @@ function App() {
   const firstClick = useSelector((state) => state.user.firstClick);
   const isAuthorized = useSelector((state) => state.user.isAuthorized);
 
-  useEffect(() => {
-    const accessToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("access_token="))
-      ?.split("=")[1];
-
-    if (accessToken) {
-      dispatch(authUser(true));
-    }
-  }, []);
+  useAuth();
 
   useEffect(() => {
     if (isAuthorized) {

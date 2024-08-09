@@ -1,23 +1,33 @@
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, uploadProfileImage } from "@/redux/states/userActions";
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 const ProfileImageUpload = () => {
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
+  const { errorAction } = useErrorHandler();
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  const afterSubmit = () => {
-    dispatch(getUserInfo());
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const afterSubmit = (error, res) => {
+      if (error) {
+        errorAction(res.message, "/auth");
+      } else {
+        toast(res.message);
+        setTimeout(() => {
+          dispatch(getUserInfo());
+        }, 1000);
+      }
+    };
+
     if (file) {
       const data = {
         file,

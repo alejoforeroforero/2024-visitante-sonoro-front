@@ -34,8 +34,10 @@ const UserUpdateForm = () => {
         navigate("/auth");
       }, 4000);
     } else {
-      toast("Actualización realizada");
-      navigate("/profile");
+      toast("Actualización completada exitosamente");
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);      
     }
   };
 

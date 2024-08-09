@@ -11,17 +11,6 @@
     position: absolute;
     right: 10px;
     top: 10px;
-
-    svg {
-      height: 20px;
-      width: 20px;
-      color: var(--primary-text-color);
-      cursor: pointer;
-
-      &:hover {
-        color: rgb(235, 107, 107);
-      }
-    }
   }
 }
 

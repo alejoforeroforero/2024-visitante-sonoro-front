@@ -1,22 +1,30 @@
-
 import { useDispatch } from "react-redux";
 import { googleSignIn } from "@/redux/states/userActions";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { authUser } from "@/redux/states/userSlice";
+import { toast } from "react-toastify";
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 const LoginGoogle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { errorAction } = useErrorHandler();
 
   const handleGoogleLoginSuccess = (credentialResponse) => {
-    const confirmation = () => {
-      navigate('/profile')
+    const afterSubmit = (error, res) => {
+      if (error) {
+        errorAction(res.message);
+      } else {
+        toast(res.message);
+        setTimeout(() => {
+          navigate("/profile");
+        }, 3000);
+      }
     };
 
     const data = {
       token: credentialResponse.credential,
-      callback: confirmation,
+      callback: afterSubmit,
     };
 
     dispatch(googleSignIn(data));
