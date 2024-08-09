@@ -46,13 +46,7 @@ const userSlice = createSlice({
         state.status = "Loading...";
       })
       .addCase(signup.fulfilled, (state, action) => {
-        state.message = action.payload.data.message;
-        state.status = action.payload.data.success;
-        if (action.payload.data.success) {
-          state.info = action.payload.data.user;
-          state.token = action.payload.data.token;
-          localStorage.setItem("token", action.payload.data.token);
-        }
+        state.status = "succeeded";
       })
       .addCase(signup.rejected, (state, action) => {
         if (axios.isCancel(action.payload)) {
@@ -94,7 +88,6 @@ const userSlice = createSlice({
         .addCase(signout.fulfilled, (state) => {
           state.loading = false;
           state.user = null;
-          state.successMessage = "Logout successful!";
         })
         .addCase(signout.rejected, (state, action) => {
           state.loading = false;

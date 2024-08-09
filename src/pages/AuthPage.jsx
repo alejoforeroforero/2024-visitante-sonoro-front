@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import AuthForm from "@/components/auth/AuthForm";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const AuthPage = () => {
 
   return (
     <div>
+      <ToastContainer />
       <AuthForm />
     </div>
   );

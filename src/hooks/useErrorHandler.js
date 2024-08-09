@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const useErrorHandler = () => {
   const navigate = useNavigate();
@@ -15,11 +15,11 @@ const useErrorHandler = () => {
     }, delayInMs);
   };
 
-  const errorAction = () => {
-    showErrorToast(
-        "Hubo un error, serás direccionado para ingresar de nuevo a la aplicación"
-      );
+  const errorAction = (message, redirect = false) => {
+    showErrorToast(message);
+    if (redirect) {
       redirectOnError();
+    }
   };
 
   return { showErrorToast, redirectOnError, navigate, errorAction };

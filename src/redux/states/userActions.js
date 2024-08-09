@@ -11,46 +11,37 @@ export const getUserInfo = createAsyncThunk("auth/getUserInfo", async () => {
   }
 });
 
-export const signup = createAsyncThunk(
-  "visitante/signup",
-  async (userData, { rejectWithValue }) => {
-    const info = {
-      username: userData.email,
-      email: userData.email,
-      password: userData.password,
-    };
+export const signup = createAsyncThunk("visitante/signup", async (dataObj) => {
+  const info = {
+    username: dataObj.user.email,
+    email: dataObj.user.email,
+    password: dataObj.user.password,
+  };
 
-    try {
-      const response = await visitanteApi.post("auth/register/", info, {
-        withCredentials: true,
-      });
-      if (!response.data.success) {
-        alert(response.data.message);
-        return;
-      }
-      alert(response.data.message);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
+  try {
+    const response = await visitanteApi.post("auth/register/", info);
+    dataObj.callback(false, response.data);
+  } catch (error) {
+    dataObj.callback(true, error.response.data);
   }
-);
+});
 
 export const login = createAsyncThunk("visitante/login", async (dataObj) => {
   try {
-    const response = await visitanteApi.post("auth/token/", dataObj.user, {
-      withCredentials: true,
-    });
+    const response = await visitanteApi.post("auth/token/", dataObj.user);
+    dataObj.callback(false, response.data);
+  } catch (error) {
+    let data;
 
-    if (!response.data.success) {
-      dataObj.callback(response);
+    if (error.response.data.message) {
+      data = error.response.data;
     } else {
-      dataObj.callback(response);
+      data = {
+        message: "La contraseña es incorrecta",
+      };
     }
 
-    return response.data;
-  } catch (error) {
-    return rejectWithValue(error.response.data);
+    dataObj.callback(true, data);
   }
 });
 

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { changeMode } from "@/redux/states/userSlice";
-import { login, signup } from "@/redux/states/userActions";
+import { login, signup, signout } from "@/redux/states/userActions";
+import { toast } from "react-toastify";
 import LoginGoogle from "@/components/auth/LoginGoogle";
-
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 import {
   Container,
@@ -18,11 +19,15 @@ import {
 
 import styles from "./AuthForm.module.css";
 
-
 const AuthForm = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { errorAction } = useErrorHandler();
+
+  useEffect(() => {
+    dispatch(signout(null));
+  }, []);
 
   const {
     control,
@@ -32,29 +37,30 @@ const AuthForm = () => {
   const [message, setMessage] = useState("");
 
   const onSubmit = async (data) => {
-
-    const confirmation = (res)=>{     
-      if(res.data.success){     
-        navigate('/')
+    const afterSave = (error, res) => {
+      if (error) {
+        errorAction(res.message);
+      } else {
+        toast(res.message);
+        setTimeout(() => {
+          navigate('/')
+        }, 3000);
+        //dispatch(getUserInfo());
       }
-      else{
-        alert('revisar que paso')
-      }
-    }
+    };
 
     const dataObj = {
-      user:{
-        "username":data.email,
-        "email":data.email,
-        "password":data.password
+      user: {
+        username: data.email,
+        email: data.email,
+        password: data.password,
       },
-      callback:confirmation
-    }
+      callback: afterSave,
+    };
 
     try {
-      const action = user.signingUp ? signup(data) : login(dataObj);
+      const action = user.signingUp ? signup(dataObj) : login(dataObj);
       dispatch(action);
-      setMessage("Operation successful!");
     } catch (error) {
       setMessage(error.message || "An error occurred");
     }
@@ -63,14 +69,6 @@ const AuthForm = () => {
   const handleChangeMode = () => {
     dispatch(changeMode());
   };
-
-  // const handleGoogleSuccess = (credentialResponse) => {
-  //   dispatch(loginWithGoogle(credentialResponse));
-  // };
-
-  // const handleGoogleError = () => {
-  //   console.error("Google Sign In was unsuccessful. Try again later");
-  // };
 
   return (
     <Container component="main" maxWidth="xs">
