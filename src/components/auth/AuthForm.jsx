@@ -44,7 +44,7 @@ const AuthForm = () => {
         toast(res.message);
         setTimeout(() => {
           navigate("/");
-        }, 3000);
+        }, 1000);
       }
     };
 

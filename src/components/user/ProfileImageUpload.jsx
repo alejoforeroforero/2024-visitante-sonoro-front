@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, uploadProfileImage } from "@/redux/states/userActions";
+import { toast } from "react-toastify";
 import useErrorHandler from "@/hooks/useErrorHandler";
 
 const ProfileImageUpload = () => {

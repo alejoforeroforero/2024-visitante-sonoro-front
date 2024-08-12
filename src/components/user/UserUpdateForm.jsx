@@ -1,14 +1,16 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "@/redux/states/userActions";
 import { toast } from "react-toastify";
+import useErrorHandler from "@/hooks/useErrorHandler";
+import { errorMessage } from "@/redux/states/userActions";
 import styles from "./UserUpdateForm.module.css";
-import { useNavigate } from "react-router-dom";
 
 const UserUpdateForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { errorAction } = useErrorHandler();
   const user = useSelector((state) => state.user.data);
 
   const { loading, error } = useSelector((state) => state.user);
@@ -27,24 +29,22 @@ const UserUpdateForm = () => {
     },
   });
 
-  const confirmation = (error) => {
-    if (error) {
-      toast("Hubo un error, serás direccionado para ingresar de nuevo a la aplicación");
-      setTimeout(() => {
-        navigate("/auth");
-      }, 4000);
-    } else {
-      toast("Actualización completada exitosamente");
-      setTimeout(() => {
-        navigate("/profile");
-      }, 1000);      
-    }
-  };
-
   const onSubmit = (data) => {
+    const afterSubmit = (error, res) => {
+      if (error) {
+        console.log(res.message);
+        errorAction(errorMessage, '/auth');
+      } else {
+        toast(res.message);
+        setTimeout(() => {
+          navigate("/profile");
+        }, 1000);
+      }
+    };
+
     const dataObj = {
       data,
-      callback: confirmation,
+      callback: afterSubmit,
     };
 
     dispatch(updateUser(dataObj));

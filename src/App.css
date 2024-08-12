@@ -15,7 +15,16 @@
   color: var(--btn--color);
 }
 
-.section-vh{
+.section-vh {
   height: calc(100vh - 100px); /* 40px de header + 60px del player */
 }
 
+/* CustomToastProgress.css */
+.Toastify__toast-container .Toastify__toast--default .Toastify__progress-bar,
+.Toastify__toast-container .Toastify__toast--dark .Toastify__progress-bar,
+.Toastify__toast-container .Toastify__toast--info .Toastify__progress-bar,
+.Toastify__toast-container .Toastify__toast--success .Toastify__progress-bar,
+.Toastify__toast-container .Toastify__toast--warning .Toastify__progress-bar,
+.Toastify__toast-container .Toastify__toast--error .Toastify__progress-bar {
+  background: linear-gradient(to right, #87f1ff, #b7ffc5);
+}

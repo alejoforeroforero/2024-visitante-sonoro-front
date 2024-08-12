@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import useAuth from "@/hooks/useAuth";
 import UserUpdateForm from "@/components/user/UserUpdateForm";
+import { errorMessage } from "@/redux/states/userActions";
 
 const EditUserProfilePage = () => {
   const { data, isAuthorized } = useSelector((state) => state.user);
@@ -13,9 +14,7 @@ const EditUserProfilePage = () => {
 
   useEffect(() => {
     if (!isAuthorized) {
-      toast(
-        "Ha ocurrido un inconveniente con tu sesión. Serás redirigido para iniciar sesión de nuevo."
-      );
+      toast(errorMessage);
 
       setTimeout(() => {
         navigate("/auth");

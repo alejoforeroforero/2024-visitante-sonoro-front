@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signout } from "@/redux/states/userActions";
 import { authUser } from "@/redux/states/userSlice";
 import { googleLogout } from "@react-oauth/google";
@@ -17,6 +17,7 @@ const NavBar = ({ isDark, setIsDark }) => {
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = () => {
     setIsDark(!isDark);
@@ -28,13 +29,24 @@ const NavBar = ({ isDark, setIsDark }) => {
   };
 
   const handleSignout = () => {
+
+    const afterSubmit= (error, res) => {
+  
+      if (error) {
+        errorAction(res.message, '/auth');
+      } else {
+        toast(res.message);
+        navigate('/');
+      }
+    };
+
     if (user["google_id"]) {
       googleLogout();
     }
 
     setShowMenu(false);
 
-    dispatch(signout(afterLogout));
+    dispatch(signout(afterSubmit));
   };
 
   return (

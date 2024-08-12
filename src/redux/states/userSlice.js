@@ -32,9 +32,6 @@ const userSlice = createSlice({
     },
     authUser: (state, action) => {
       state.isAuthorized = action.payload;
-      if (!action.payload) {
-        state.data = null;
-      }
     },
     autoSignin: (state, action) => {
       state.token = localStorage.getItem("token");
@@ -87,7 +84,8 @@ const userSlice = createSlice({
         })
         .addCase(signout.fulfilled, (state) => {
           state.loading = false;
-          state.user = null;
+          state.data = null;
+          state.isAuthorized = false;
         })
         .addCase(signout.rejected, (state, action) => {
           state.loading = false;

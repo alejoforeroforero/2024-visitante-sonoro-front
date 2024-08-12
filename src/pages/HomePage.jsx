@@ -38,6 +38,7 @@ const HomePage = () => {
     }
   }, [recordDetailsSelected]);
 
+
   return (
     <>
       <div className={styles.generalContent}>

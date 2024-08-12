@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -6,10 +5,10 @@ const useErrorHandler = () => {
   const navigate = useNavigate();
 
   const showErrorToast = (message) => {
-    toast.error(message);
+    toast.error(message, { autoClose: 3500 })
   };
 
-  const redirectOnError = (delayInMs = 2000) => {
+  const redirectOnError = (delayInMs = 3500) => {
     setTimeout(() => {
       navigate("/auth");
     }, delayInMs);

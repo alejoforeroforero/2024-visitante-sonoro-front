@@ -1,6 +1,9 @@
 import { visitanteApi } from "@/api/visitante.api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+export const errorMessage =
+  "Lo sentimos, se ha producido un error inesperado en el sistema. Por seguridad, serás redirigido a la página de autorización";
+
 export const signup = createAsyncThunk("visitante/signup", async (dataObj) => {
   const info = {
     username: dataObj.user.email,
@@ -61,9 +64,9 @@ export const signout = createAsyncThunk(
   async (callback) => {
     try {
       const res = await visitanteApi.post("auth/logout/");
-      callback(res);
+      callback(false, res.data);
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      callback(true, error.response.data);
     }
   }
 );
@@ -80,24 +83,28 @@ export const getUserInfo = createAsyncThunk("auth/getUserInfo", async () => {
 
 export const updateUser = createAsyncThunk(
   "user/updateUser",
-  async (dataObj, { rejectWithValue }) => {
+  async (dataObj) => {
     try {
       const response = await visitanteApi.put("auth/user/", dataObj.data);
-      dataObj.callback();
+      dataObj.callback(false, response.data);
     } catch (error) {
-      dataObj.callback(error);
+      dataObj.callback(true, error);
     }
   }
 );
 
 export const saveFavorite = createAsyncThunk(
   "user/savefavorite",
-  async (dataObj, { rejectWithValue }) => {
+  async (dataObj) => {
     try {
       const response = await visitanteApi.post("auth/favorites/", dataObj.data);
       dataObj.callback(false, response);
     } catch (error) {
-      dataObj.callback(true, error);
+      console.log(error);
+      const res = {
+        message: errorMessage,
+      };
+      dataObj.callback(true, res);
     }
   }
 );
@@ -113,7 +120,11 @@ export const deleteFavorite = createAsyncThunk(
       });
       dataObj.callback(false, response);
     } catch (error) {
-      dataObj.callback(true, error);
+      console.log(error);
+      const res = {
+        message: errorMessage,
+      };
+      dataObj.callback(true, res);
     }
   }
 );
@@ -134,9 +145,9 @@ export const uploadProfileImage = createAsyncThunk(
     } catch (error) {
       console.log(error);
       const res = {
-        message: 'Lo sentimos, se ha producido un error inesperado en el sistema. Por seguridad, serás redirigido a la página de autorización'
-      }
-      data.callback(true, res);
+        message: errorMessage,
+      };
+      dataObj.callback(true, res);
     }
   }
 );

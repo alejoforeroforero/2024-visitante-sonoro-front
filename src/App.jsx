@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 import { changeMode } from "./redux/states/audioPlayerSlice";
 import { setFirstClick } from "./redux/states/userSlice";
 import { getUserInfo } from "./redux/states/userActions";
-import { ToastContainer } from "react-toastify";
-
+import { ToastContainer, toast } from "react-toastify";
 import useAuth from "@/hooks/useAuth";
 
 import NavBar from "@/components/NavBar";
@@ -43,7 +42,18 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={800}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {!firstClick && <IntroPage handleFirstClick={handleFirstClick} />}
       {firstClick && (
         <div className="App" data-theme={isDark ? "dark" : "light"}>

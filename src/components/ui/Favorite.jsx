@@ -26,7 +26,7 @@ const Favorite = ({ user, recordId }) => {
   const handleSaveFavorite = () => {
     const afterSave = (error, res) => {
       if (error) {
-        errorAction();
+        errorAction(res.message, '/auth');
       } else {
         toast("Se ha añadido a tus favoritos");
         dispatch(getUserInfo());
@@ -48,7 +48,7 @@ const Favorite = ({ user, recordId }) => {
   const handleDeleteFavorite = () => {
     const afterDelete = (error, res) => {
       if (error) {
-        errorAction();
+        errorAction(res.message, '/auth');
       } else {
         toast("Se ha eliminado de favoritos");
         dispatch(getUserInfo());
