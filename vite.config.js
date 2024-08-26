@@ -12,8 +12,11 @@ export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.md'],
   server: {
-    host: 'localhost',
-  },
+    port: 5174,
+    strictPort: true,
+    host: true,
+    origin: "http://0.0.0.0:5174",
+   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

@@ -12,6 +12,7 @@ import Toogle from "@/components/ui/Toogle";
 import { GiHamburgerMenu } from "react-icons/gi";
 import logo from "@/assets/imgs/head.png";
 import styles from "./NavBar.module.css";
+import Search from "./ui/Search";
 
 const NavBar = ({ isDark, setIsDark }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -61,8 +62,7 @@ const NavBar = ({ isDark, setIsDark }) => {
           </Link>
         </div>
         <div className={styles["nav-bar-center"]}>
-          <FaSearch size={18} color="#fff" />
-          <input type="text" placeholder="Search..." />
+          <Search />
         </div>
         <div className={styles["nav-bar-right"]}>
           <div className={styles.auth}>

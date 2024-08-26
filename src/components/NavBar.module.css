@@ -43,19 +43,14 @@
 }
 
 .nav-bar-center {
-  width: 25%;
+  width: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  input {
-    width: 80%;
-    margin-left: 10px;
-  }
 }
 
 .nav-bar-right {
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: right;
 }
