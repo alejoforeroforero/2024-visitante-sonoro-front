@@ -14,8 +14,6 @@
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
-    "@langchain/community": "^0.2.16",
-    "@langchain/openai": "^0.2.1",
     "@mui/icons-material": "^5.16.4",
     "@mui/material": "^5.16.4",
     "@react-oauth/google": "^0.12.1",
@@ -26,7 +24,6 @@
     "framer-motion": "^11.3.2",
     "git-filter-repo": "^0.0.30",
     "jwt-decode": "^4.0.0",
-    "langchain": "^0.2.8",
     "mapbox-gl": "^3.5.1",
     "pdf-parse": "^1.1.1",
     "react": "^18.2.0",
@@ -54,3 +51,5 @@
     "vite": "^5.4.2"
   }
 }
+
+
