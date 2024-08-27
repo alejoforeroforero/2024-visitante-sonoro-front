@@ -1,10 +1,16 @@
+# services:
+#   vite-app2:
+#     build: .
+#     ports:
+#       - '5174:5174'
+#     volumes:
+#       - .:/app
+#       - /app/node_modules
+#     environment:
+#       - CHOKIDAR_USEPOLLING=true
+
 services:
-  vite-app2:
+  vite-app:
     build: .
     ports:
-      - '5174:5174'
-    volumes:
-      - .:/app
-      - /app/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+      - '82:82'
