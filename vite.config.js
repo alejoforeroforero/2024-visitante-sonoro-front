@@ -11,12 +11,12 @@ const __dirname = dirname(__filename);
 export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.md'],
-  server: {
-    port: 5174,
-    strictPort: true,
-    host: true,
-    origin: "http://0.0.0.0:5174",
-   },
+  // server: {
+  //   port: 5174,
+  //   strictPort: true,
+  //   host: true,
+  //   origin: "http://0.0.0.0:5174",
+  //  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

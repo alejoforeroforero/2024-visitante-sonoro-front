@@ -1,16 +1,9 @@
-# services:
-#   vite-app2:
-#     build: .
-#     ports:
-#       - '5174:5174'
-#     volumes:
-#       - .:/app
-#       - /app/node_modules
-#     environment:
-#       - CHOKIDAR_USEPOLLING=true
-
 services:
-  vite-app:
+  app:
     build: .
     ports:
-      - '82:82'
+      - 90:5173
+    volumes:
+      - ./src:/app/src
+
+
