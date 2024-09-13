@@ -2,8 +2,6 @@ services:
   app:
     build: .
     ports:
-      - 90:5173
+      - 5175:5173
     volumes:
       - ./src:/app/src
-
-
