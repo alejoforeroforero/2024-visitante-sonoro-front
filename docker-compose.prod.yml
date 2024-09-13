@@ -4,7 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile.prod    
     ports:
-      - "8081:80"  # Cambiado de "80:80"
       - "8445:443"  # Cambiado de "443:443"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
