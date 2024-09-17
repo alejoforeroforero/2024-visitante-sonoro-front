@@ -6,8 +6,7 @@ RUN npm install
 COPY . .
 RUN ["npm", "run", "build"]
 
-FROM nginx:1.25.1-alpine3.17-slim
+# Etapa final
+FROM nginx:alpine
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-#COPY default.conf /etc/nginx/conf.d/default.conf
-EXPOSE 443
-CMD ["nginx", "-g", "daemon off;"]
+# El EXPOSE 443 se elimina ya que nginx:alpine ya lo incluye
