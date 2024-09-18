@@ -1,12 +1,7 @@
 services:
-  app:
-    build: 
-      context: .
-      dockerfile: Dockerfile.prod    
+  vite-app:
+    build: .
     ports:
-      - "443:443"
+      - "8082:80"
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-    environment:
-      - NODE_ENV=production
-    restart: unless-stopped
+      - ./dist:/usr/share/nginx/html/2024-bandwaggon-website

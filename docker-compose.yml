@@ -1,7 +1,7 @@
 services:
-  app:
+  vite-app:
     build: .
     ports:
-      - 5176:5173
+      - "8082:80"
     volumes:
-      - ./src:/app/src
+      - ./dist:/usr/share/nginx/html/2024-bandwaggon-website
