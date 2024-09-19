@@ -11,6 +11,8 @@ function useAuth() {
       .find((row) => row.startsWith("access_token="))
       ?.split("=")[1];
 
+      debugger;
+
     if (accessToken) {
       dispatch(authUser(true));
     }
