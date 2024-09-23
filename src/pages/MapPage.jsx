@@ -64,8 +64,8 @@ const MapPage = () => {
           zoom: 4,
         }}
         style={{ width: "100%", height: "100%" }}
-        // mapStyle="mapbox://styles/mapbox/light-v11"
-        mapStyle="mapbox://styles/alejoforero/clyk7b6tm01s101qrelom2c6g"
+        mapStyle="mapbox://styles/mapbox/light-v11"
+        //mapStyle="mapbox://styles/alejoforero/clyk7b6tm01s101qrelom2c6g"
       >
         <NavigationControl
           style={{

@@ -4,7 +4,7 @@ const initialState = {
   title: "Cancion default",
   audioSrc: "",
   recordDetails: {},
-  isPlaying: true,
+  isPlaying: false,
   mode: "",
   error: null,
   status: "idle",

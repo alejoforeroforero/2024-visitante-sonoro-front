@@ -1,7 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsPlaying } from "@/redux/states/audioPlayerSlice";
-import { FaPlay, FaPause, FaStepForward, FaStepBackward } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaStepForward,
+  FaStepBackward,
+  FaCircle,
+} from "react-icons/fa";
 import styles from "./Player.module.css";
 
 const Player = ({ audioRef }) => {
@@ -11,97 +17,146 @@ const Player = ({ audioRef }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [currentTimeFormatted, setCurrentTimeFormatted] = useState(null);
   const [durationFormatted, setDurationFormatted] = useState("00:00");
-  const [duration, setDuration] = useState(200);
-  const [volumeWidth, setVolumeWidth] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volumePercentage, setVolumePercentage] = useState(10); // Initial volume 10%
   const gIsPlaying = useSelector((state) => state.audio.isPlaying);
-
-  // useEffect(() => {
-  //   if (audioRef.current) {
-
-  //     if (audioRef.current.duration) {
-  //       const setAudioData = () => {
-
-  //         setDuration(audioRef.current.duration);
-  //       };
-
-  //       const setAudioTime = () => {
-  //         setCurrentTime(audioRef.current.currentTime);
-  //       };
-
-  //       console.log(audioRef.current);
-
-  //       audioRef.current.addEventListener("loadedmetadata", setAudioData);
-  //       audioRef.current.addEventListener("timeupdate", setAudioTime);
-  //       audioRef.current.volume = 0.1;
-
-  //       return () => {
-  //         audioRef.current.removeEventListener("loadedmetadata", setAudioData);
-  //         audioRef.current.removeEventListener("timeupdate", setAudioTime);
-  //       };
-  //     }
-  //   }
-  // }, []);
-
-  if (recordDetails?.audio) {
-    if (audioRef.current) {
-      if (audioRef.current.duration) {
-        const setAudioData = () => {
-          setDuration(audioRef.current.duration);
-        };
-
-        const setAudioTime = () => {
-          setCurrentTime(audioRef.current.currentTime);
-        };
-        audioRef.current.addEventListener("loadedmetadata", setAudioData);
-        audioRef.current.addEventListener("timeupdate", setAudioTime);
-        audioRef.current.volume = 0.1;
-      }
-    }
-  }
+  const [localIsPlaying, setLocalIsPlaying] = useState(false);
+  const [audioSrc, setAudioSrc] = useState("");
+  const volumeRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    setCurrentTimeFormatted(formatTime(audioRef.current.currentTime));
-    if (duration > audioRef.current.currentTime) {
-      setDurationFormatted(formatTime(duration - audioRef.current.currentTime));
+    if (recordDetails?.audio) {
+      setAudioSrc(getAudioSrc(recordDetails.audio));
+      setLocalIsPlaying(false); // Reset to play icon when audio changes
     }
-  }, [audioRef.current?.currentTime]);
+  }, [recordDetails]);
+
+  useEffect(() => {
+    let isMounted = true;
+    const audio = audioRef.current;
+
+    if (audio && audioSrc) {
+      const setAudioData = () => {
+        if (isMounted) setDuration(audio.duration);
+      };
+
+      const setAudioTime = () => {
+        if (isMounted) setCurrentTime(audio.currentTime);
+      };
+
+      const handleAudioEnded = () => {
+        if (isMounted) {
+          dispatch(setIsPlaying(false));
+          setLocalIsPlaying(false);
+        }
+      };
+
+      audio.addEventListener("loadedmetadata", setAudioData);
+      audio.addEventListener("timeupdate", setAudioTime);
+      audio.addEventListener("ended", handleAudioEnded);
+      audio.volume = volumePercentage / 100;
+
+      return () => {
+        if (audio) {
+          audio.removeEventListener("loadedmetadata", setAudioData);
+          audio.removeEventListener("timeupdate", setAudioTime);
+          audio.removeEventListener("ended", handleAudioEnded);
+        }
+        isMounted = false;
+      };
+    }
+  }, [audioRef, audioSrc, volumePercentage, dispatch]);
+
+  useEffect(() => {
+    setCurrentTimeFormatted(formatTime(audioRef.current?.currentTime || 0));
+    if (duration > (audioRef.current?.currentTime || 0)) {
+      setDurationFormatted(
+        formatTime(duration - (audioRef.current?.currentTime || 0))
+      );
+    }
+  }, [audioRef.current?.currentTime, duration]);
 
   const handleOnPlay = () => {
-    if (audioRef.current.paused) {
-      dispatch(setIsPlaying(true));
-    } else {
-      dispatch(setIsPlaying(false));
+    if (audioRef.current && audioSrc) {
+      if (audioRef.current.paused) {
+        audioRef.current
+          .play()
+          .catch((error) => console.error("Error playing audio:", error));
+        dispatch(setIsPlaying(true));
+        setLocalIsPlaying(true);
+      } else {
+        audioRef.current.pause();
+        dispatch(setIsPlaying(false));
+        setLocalIsPlaying(false);
+      }
     }
   };
 
-  if (gIsPlaying) {
-    audioRef.current?.play();
-  } else {
-    audioRef.current?.pause();
-  }
+  useEffect(() => {
+    if (audioRef.current && audioSrc) {
+      if (gIsPlaying) {
+        audioRef.current
+          .play()
+          .catch((error) => console.error("Error playing audio:", error));
+        setLocalIsPlaying(true);
+      } else {
+        audioRef.current.pause();
+        setLocalIsPlaying(false);
+      }
+    }
+  }, [gIsPlaying, audioSrc]);
 
   const handleProgressClick = (event) => {
-    const progressBar = event.target;
-    const rect = progressBar.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left;
-    const newTime = (offsetX / progressBar.clientWidth) * duration;
-    audioRef.current.currentTime = newTime;
-    setCurrentTime(newTime);
+    if (audioRef.current && duration > 0) {
+      const progressBar = event.target;
+      const rect = progressBar.getBoundingClientRect();
+      const offsetX = event.clientX - rect.left;
+      const newTime = (offsetX / progressBar.clientWidth) * duration;
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
   };
 
-  const handleVolumeClick = (event) => {
-    const volume = event.target;
-    const rect = volume.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left;
+  const handleVolumeChange = (clientX) => {
+    if (audioRef.current && volumeRef.current) {
+      const volume = volumeRef.current;
+      const rect = volume.getBoundingClientRect();
+      let offsetX = clientX - rect.left;
 
-    const percentage = (offsetX * 100) / rect.width;
+      offsetX = Math.max(0, Math.min(offsetX, rect.width));
 
-    const volumeSelected = percentage / 100;
-
-    audioRef.current.volume = volumeSelected;
-
-    setVolumeWidth(offsetX);
+      const percentage = (offsetX / rect.width) * 100;
+      setVolumePercentage(percentage);
+      audioRef.current.volume = percentage / 100;
+    }
   };
+
+  const handleVolumeMouseDown = (event) => {
+    setIsDragging(true);
+    handleVolumeChange(event.clientX);
+  };
+
+  const handleVolumeMouseMove = (event) => {
+    if (isDragging) {
+      handleVolumeChange(event.clientX);
+    }
+  };
+
+  const handleVolumeMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleVolumeMouseMove);
+      document.addEventListener("mouseup", handleVolumeMouseUp);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleVolumeMouseMove);
+      document.removeEventListener("mouseup", handleVolumeMouseUp);
+    };
+  }, [isDragging]);
 
   const formatTime = (time) => {
     const secs = `${parseInt(`${time % 60}`, 10)}`.padStart(2, "0");
@@ -124,22 +179,19 @@ const Player = ({ audioRef }) => {
   return (
     <div className={styles.player}>
       <div className={styles.info}>
-        {recordDetails?.author && <p>{recordDetails.author}</p>}
         {recordDetails?.title && <p>{recordDetails.title}</p>}
-        {recordDetails?.category && <p>{recordDetails.category}</p>}
+        {recordDetails?.author && <p>{recordDetails.author}</p>}
+        {/* {recordDetails?.category && <p>{recordDetails.category}</p>} */}
       </div>
       <div className={styles.controls}>
-        <audio
-          ref={audioRef}
-          src={recordDetails?.audio ? getAudioSrc(recordDetails?.audio) : ""}
-          controls
-          crossOrigin="anonymous"
-          autoPlay
-        />
+        <audio ref={audioRef} src={audioSrc} controls crossOrigin="anonymous" />
         <div className={styles.buttons}>
           <FaStepBackward color="white" />
-          {gIsPlaying && <FaPause onClick={handleOnPlay} color="white" />}
-          {!gIsPlaying && <FaPlay onClick={handleOnPlay} color="white" />}
+          {localIsPlaying ? (
+            <FaPause onClick={handleOnPlay} color="white" />
+          ) : (
+            <FaPlay onClick={handleOnPlay} color="white" />
+          )}
           <FaStepForward color="white" />
         </div>
         <div className={styles.progress}>
@@ -160,13 +212,23 @@ const Player = ({ audioRef }) => {
         </div>
       </div>
       <div className={styles.volumeContainer}>
-        <div className={styles.volume}>
-          <div className={styles.volumeOver} onClick={handleVolumeClick}></div>
+        <div className={styles.volume} ref={volumeRef}>
+          <div
+            className={styles.volumeOver}
+            onMouseDown={handleVolumeMouseDown}
+          ></div>
           <div className={styles.volumeBG}>
             <div
               className={styles.currentVolume}
-              style={{ width: volumeWidth ? volumeWidth : "100%" }}
+              style={{ width: `${volumePercentage}%` }}
             ></div>
+          </div>
+          <div
+            className={styles.volumeKnob}
+            style={{ left: `${volumePercentage}%` }}
+            onMouseDown={handleVolumeMouseDown}
+          >
+            <FaCircle color="white" size={12} />
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ const HomePage = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    dispatch(fetchRecordDetails(1));
+    //dispatch(fetchRecordDetails(1));
   }, []);
 
   useEffect(() => {

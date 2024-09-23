@@ -21,7 +21,6 @@ const authorsSlice = createSlice({
         state.status = "Loading...";
       })
       .addCase(fetchAuthors.fulfilled, (state, action) => {
-        debugger;
         state.status = "Success";
         state.authors = action.payload;
       })
