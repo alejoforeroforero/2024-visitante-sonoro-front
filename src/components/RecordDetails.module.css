@@ -8,6 +8,13 @@
   padding: 30px;
   background-color: var(--audio-box-bg);
   border-radius: 14px;
+  position: relative;
+
+  span{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 
   h2 {
     font-size: 3.5rem;
@@ -30,6 +37,15 @@
       color: rgb(131, 191, 250);
     }
   }
+
+}
+
+.play {
+  height: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   svg {
     height: 80px;

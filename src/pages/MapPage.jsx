@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecordings } from "@/redux/states/recordingsActions";
 import Map, { NavigationControl, Marker } from "react-map-gl";
+import Record from "@/components/Record";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import styles from "./MapPage.module.css";
@@ -12,6 +13,9 @@ const CustomMarker = ({ onClick }) => (
 
 const MapPage = () => {
   const dispatch = useDispatch();
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const { recordings, error, status } = useSelector(
     (state) => state.recordings
@@ -49,9 +53,14 @@ const MapPage = () => {
 
       setCurrentZoom(14);
     } else {
-      alert(marker.title);
+      setSelectedRecord(marker);
+      setShowPopup(true);
     }
   };
+
+  const handleOnClosePopup = ()=>{
+    setShowPopup(false);
+  }
 
   return (
     <div className={styles.container}>
@@ -86,6 +95,12 @@ const MapPage = () => {
           );
         })}
       </Map>
+      {showPopup && (
+        <div className={styles["popup-record"]}>
+          <span className={styles["popup-close"]} onClick={handleOnClosePopup}>X</span>
+          <Record key={selectedRecord.id} record={selectedRecord} />
+        </div>
+      )}
     </div>
   );
 };

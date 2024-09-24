@@ -1,29 +1,56 @@
-.container{
-    position: fixed;
-    left: 0;
-    top:0;
-    width: 100vw;;
-    height: 100vh;
-    background-color: rgba(11, 11, 11, 0.7);
-    z-index: 1;
-    opacity: 0;
-    animation: fadeIn 2.3s ease-in-out 0.4s forwards;
+.container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 11, 11, 0.7);
+  z-index: 1;
+  opacity: 1;
+  /* animation: fadeIn 2.3s ease-in-out 0.4s forwards; */
+  border: 3px solid red;
 }
 
-.marker{
-    background-color: rgb(225, 107, 125);
-    border-radius: 50%;
-    width: 13px;
-    height: 13px;
+.marker {
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+}
+
+.popup-record {
+  background-color: var(--background-color);
+  position: absolute;
+  left: 60%;
+  top: 18%;
+  width: 340px;
+
+}
+
+.popup-close{
+    position: absolute;
+    top:-2px;
+    right: -2px;
+    background-color: rgb(152, 169, 255);
+    color: rgb(255, 255, 255);
+    z-index: 100;
     cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+
+    &:hover{
+        background-color: rgb(89, 41, 41);
+    }
 }
 
 @keyframes fadeIn {
-    from{
-        transform: translate(0, -40vh);
-        opacity:0;
-    }to{
-        transform: translate(0, 0);
-        opacity:1;
-    }
+  from {
+    transform: translate(0, -40vh);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
 }
