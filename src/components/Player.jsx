@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsPlaying } from "@/redux/states/audioPlayerSlice";
@@ -176,12 +177,21 @@ const Player = ({ audioRef }) => {
     return audioPath;
   };
 
+  const handleOnclicktitle = () => {
+    console.log(recordDetails);
+  };
+
   return (
     <div className={styles.player}>
       <div className={styles.info}>
-        {recordDetails?.title && <p>{recordDetails.title}</p>}
-        {recordDetails?.author && <p>{recordDetails.author}</p>}
-        {/* {recordDetails?.category && <p>{recordDetails.category}</p>} */}
+        {recordDetails?.title && (
+          <Link to={`/record/${recordDetails.id}`}>
+            {recordDetails.title} 
+          </Link>
+        )}
+        {recordDetails?.author && (
+          <p>{recordDetails.author} </p>
+        )}
       </div>
       <div className={styles.controls}>
         <audio ref={audioRef} src={audioSrc} controls crossOrigin="anonymous" />

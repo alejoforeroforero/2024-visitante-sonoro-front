@@ -7,27 +7,23 @@
 .info {
   width: 25vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  padding: 12px 0;
+  align-items: center;
   height: 100%;
   max-height: 100%;
+  padding: 10px 2vw;
+
+  a{
+    width: 100%;
+    font-size: 1rem;
+    color:var(--link-color);
+  }
+
+  p{
+    font-size: 0.8rem;
+  }
 }
 
-.info p {
-  width: 80%;
-  font-size: 0.8rem;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  font-weight: 200;
-}
-
-.info p:first-child{
-  font-size: 1rem;
-  font-weight: 900;
-}
 
 .controls {
   width: 50vw;
