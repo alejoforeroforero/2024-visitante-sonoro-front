@@ -33,9 +33,11 @@
   --audio-title:#2c5d92;
   --audio-categoria:#4a96e7;
 
-  --input-bg-color:#454545;
+  --input-bg-color:#c2c2c2;
 
   --author-bg-color: rgb(216, 216, 216);
+
+  --player-text-color: #fbfbfb;
 }
 
 [data-theme="dark"] {
@@ -65,6 +67,8 @@
   --input-bg-color:#454545;
 
   --author-bg-color: rgb(71, 71, 71);
+  
+  --player-text-color: #fbfbfb;
 }
 
 h1 {

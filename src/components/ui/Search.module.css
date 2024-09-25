@@ -22,10 +22,10 @@
 
 .resultsList {
   position: absolute;
-  background-color: rgb(217, 253, 255);
+  background-color: rgba(227, 224, 224, 0.4);
   left: 40px;
   top: 44px;
-  width: 400px;
+  width: 88%;
   min-height: 300px;
   height: 300px;
   list-style: none;
@@ -34,12 +34,19 @@
 }
 
 .resultItem {
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   padding: 10px 4px;
-  border-bottom: 1px solid rgb(79, 77, 77);
+  border-bottom: 1px solid rgb(187, 184, 184);
   cursor: pointer;
 
   &:hover {
-    background-color: rgb(108, 162, 248);
+    background-color: rgb(200, 223, 255);
   }
+}
+
+.loader{
+  position: absolute;
+  left: 40px;
+  top: 44px;
+  color:rgb(148, 180, 244);
 }

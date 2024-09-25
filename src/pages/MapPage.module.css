@@ -24,19 +24,20 @@
   left: 60%;
   top: 18%;
   width: 340px;
+  border-radius: 12px;
 
 }
 
 .popup-close{
     position: absolute;
-    top:-2px;
-    right: -2px;
-    background-color: rgb(152, 169, 255);
+    top:-10px;
+    left: -10px;
+    background-color: rgb(88, 88, 88);
     color: rgb(255, 255, 255);
     z-index: 100;
     cursor: pointer;
     padding: 6px 10px;
-    border-radius: 4px;
+    border-radius: 50%;
     font-weight: bold;
 
     &:hover{
