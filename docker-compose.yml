@@ -4,4 +4,4 @@ services:
     ports:
       - "8082:80"
     volumes:
-      - ./dist:/usr/share/nginx/html/2024-bandwaggon-website
+      - ./dist:/usr/share/nginx/html/2024-visitante-sonoro-front
