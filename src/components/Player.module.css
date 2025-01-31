@@ -13,22 +13,33 @@
   max-height: 100%;
   padding: 10px 2vw;
 
-  a{
+  a {
     width: 100%;
     font-size: 1rem;
-    color:var(--link-color);
+    color: var(--link-color);
   }
 
-  p{
+  p {
     font-size: 0.8rem;
-    color:var(--player-text-color);
+    color: var(--player-text-color);
   }
 }
 
+@media (max-width: 600px) {
+  .info {
+    display: none;
+  }
+}
 
 .controls {
   width: 50vw;
   height: 100%;
+}
+
+@media (max-width: 600px) {
+  .controls {
+    width: 100vw;
+  }
 }
 
 .controls audio {
@@ -105,6 +116,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 600px) {
+  .volumeContainer {
+    display: none;
+  }
 }
 
 .volume {

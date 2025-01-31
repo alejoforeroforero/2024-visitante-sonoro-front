@@ -26,3 +26,35 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    background-color: rgb(253, 253, 253);
+    min-height: 80vh;
+    text-align: center;
+    padding: 60px 0px 120px;
+  
+    h1 {
+      font-size: 1.3rem;
+      padding: 30px 10% 50px 30%;
+      color: rgb(58, 81, 121);
+      text-align: left;
+    }
+  
+    div {
+      text-align: right;
+      padding-right: 20%;
+    }
+  
+    img {
+      width: 80%;
+      cursor: pointer;
+      border-radius: 20px;
+  
+      &:hover {
+        filter: invert();
+      }
+    }
+  }
+
+}

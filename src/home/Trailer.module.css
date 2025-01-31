@@ -46,6 +46,17 @@
   }
 }
 
+@media (max-width: 768px) {
+  /* Styles for screens smaller than 768px */
+  .left {  
+    p {
+      font-size: 0.8rem; 
+      width: 95%;    
+    }
+  }
+}
+
+
 .right {
   width: 50%;
   display: flex;
