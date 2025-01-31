@@ -5,3 +5,5 @@ services:
       - "8082:80"
     volumes:
       - ./dist:/usr/share/nginx/html/2024-visitante-sonoro-front
+    environment:
+      VITE_BASE_URL_BACKEND: "https://visitantesonoro.cocinasitinerantes.com/"
