@@ -1,0 +1,49 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "fix": "npm run lint && npm run prettier",
+    "lint": "eslint . --ext js,jsx --fix --report-unused-disable-directives --max-warnings 0",
+    "prettier": "prettier --write ./src/**/*.{js,jsx}",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.4",
+    "@mui/material": "^5.16.4",
+    "@react-oauth/google": "^0.12.1",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "formik": "^2.4.6",
+    "framer-motion": "^11.3.2",
+    "jwt-decode": "^4.0.0",
+    "mapbox-gl": "^3.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.52.1",
+    "react-icons": "^5.2.1",
+    "react-map-gl": "^7.1.7",
+    "react-router-dom": "^6.23.1",
+    "react-toastify": "^10.0.5",
+    "styled-components": "^6.1.11",
+    "use-local-storage": "^3.0.0",
+    "yup": "^1.4.0",
+    "zod": "^3.23.8",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.4.2"
+  }
+}
