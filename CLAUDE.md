@@ -114,3 +114,42 @@ Routes defined in `front/src/Router.jsx`. Main sections:
 **Authors** (`/v1`):
 - `GET /authors/` - List all authors
 - `GET /authors/:id/` - Get author details
+
+## Deployment (Railway)
+
+**Project**: merry-charisma (Railway trial: $5 credit)
+
+| Service | URL |
+|---------|-----|
+| Frontend | https://frontend-production-af0d.up.railway.app |
+| Backend | https://backend-production-eaa1.up.railway.app |
+
+**Database**: MongoDB Atlas (project: visitantesonoro2026, cluster: vs)
+
+### Deploy commands
+
+GitHub auto-deploy does NOT work for this monorepo. Deploy manually with `railway up`:
+
+```bash
+# Backend
+railway up --service backend --path-as-root backend/
+
+# Frontend (must exclude local .env so Railway vars are used at build time)
+cd front && mv .env .env.bak && railway up --service frontend --path-as-root . && mv .env.bak .env
+```
+
+### Railway environment variables
+
+**Backend** (service: backend):
+- `PORT`, `MONGODB_URI`, `JWT_SECRET`, `GOOGLE_CLIENT_ID`, `FRONTEND_URL`
+- `RAILWAY_ROOT_DIR=backend`
+
+**Frontend** (service: frontend):
+- `VITE_BASE_URL_BACKEND`, `VITE_GOOGLE_CLIENT_ID`, `VITE_MAPBOX_TOKEN`
+- `RAILWAY_ROOT_DIR=front`
+
+### Notes
+- MongoDB connection uses `{ family: 4 }` to force IPv4 (Railway IPv6 is blocked by Atlas free tier)
+- VITE_ variables are baked at build time — redeploy frontend after changing them
+- Manage Railway variables: `railway variables --service <name>`
+- Switch linked service: `railway service` (interactive)
