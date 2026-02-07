@@ -6,8 +6,11 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import styles from "./MapPage.module.css";
 
-const CustomMarker = ({ onClick }) => (
-  <div className={styles.marker} onClick={onClick}></div>
+const CustomMarker = ({ onClick, image }) => (
+  <div className={styles.marker} onClick={onClick}>
+    {image && <img src={image} alt="" className={styles.markerImage} />}
+    <span className={styles.demoBadge}>DEMO</span>
+  </div>
 );
 
 const MapPage = () => {
@@ -31,7 +34,7 @@ const MapPage = () => {
   const handleMarkerClick = (marker) => {
     if (mapRef.current.getZoom() < 14) {
       const end = {
-        center: [marker.longitude, marker.latitude],
+        center: [marker.location?.lng, marker.location?.lat],
         zoom: 14,
         pitch: 10,
       };
@@ -70,15 +73,18 @@ const MapPage = () => {
           }}
           position="top-right"
         />
-        {recordings.map((marker) => {
+        {recordings.filter(marker => marker.location?.lat && marker.location?.lng).map((marker) => {
           return (
             <Marker
-              key={marker.id}
-              longitude={marker.longitude}
-              latitude={marker.latitude}
+              key={marker._id}
+              longitude={marker.location.lng}
+              latitude={marker.location.lat}
               anchor="bottom"
             >
-              <CustomMarker onClick={() => handleMarkerClick(marker)} />
+              <CustomMarker
+                onClick={() => handleMarkerClick(marker)}
+                image={marker.author_id?.image}
+              />
             </Marker>
           );
         })}
@@ -86,7 +92,7 @@ const MapPage = () => {
       {showPopup && (
         <div className={styles["popup-record"]}>
           <span className={styles["popup-close"]} onClick={handleOnClosePopup}>X</span>
-          <Record key={selectedRecord.id} record={selectedRecord} />
+          <Record key={selectedRecord._id} record={selectedRecord} />
         </div>
       )}
     </div>

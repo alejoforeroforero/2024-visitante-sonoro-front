@@ -14,7 +14,7 @@ const Record = ({ record }) => {
   const setIsPlaying = useAudioPlayerStore((state) => state.setIsPlaying);
 
   const handleChangeAudio = () => {
-    if (currentAudioDetails.id == record.id) {
+    if (currentAudioDetails._id == record._id) {
       if (gIsPlaying) {
         setIsPlaying(false);
       } else {
@@ -27,25 +27,29 @@ const Record = ({ record }) => {
     }
   };
 
+  const categoryName = record.category?.name || record.category;
+  const categorySlug = record.category?.slug || record.category;
+
   return (
     <div className={styles.recordBox}>
+      <span className={styles.demoBadge}>DEMO</span>
       <span>
-        <Favorite user={user} recordId={record.id} />
+        <Favorite user={user} recordId={record._id} />
       </span>
 
       <div className={styles.title}>
-        <Link to={`/record/${record.id}`}>
+        <Link to={`/record/${record._id}`}>
           <h2>{record.title} </h2>
         </Link>
       </div>
       <div className={styles.play}>
-        {currentAudioDetails.id == record.id && gIsPlaying && (
+        {currentAudioDetails._id == record._id && gIsPlaying && (
           <FaPause onClick={handleChangeAudio} size={30} />
         )}
-        {currentAudioDetails.id == record.id && !gIsPlaying && (
+        {currentAudioDetails._id == record._id && !gIsPlaying && (
           <FaPlay onClick={handleChangeAudio} size={30} />
         )}
-        {currentAudioDetails.id != record.id && (
+        {currentAudioDetails._id != record._id && (
           <FaPlay onClick={handleChangeAudio} size={30} />
         )}
       </div>
@@ -55,15 +59,14 @@ const Record = ({ record }) => {
       <div className={styles.category}>
         <h4>
           Categoría:{" "}
-          <Link to={`/catalogo/${record.categorySlug}`}>
-            {" "}
-            {record.category}
+          <Link to={`/catalogo/${categorySlug}`}>
+            {categoryName}
           </Link>
         </h4>
       </div>
       <div className={styles.tag}>
-        {record.tags?.map((tag) => {
-          return <span key={tag.id}>{tag.title}</span>;
+        {record.tags?.map((tag, index) => {
+          return <span key={tag._id || index}>{tag.title || tag}</span>;
         })}
       </div>
     </div>

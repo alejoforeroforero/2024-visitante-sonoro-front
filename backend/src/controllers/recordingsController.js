@@ -16,6 +16,7 @@ export const getRecordings = async (req, res) => {
 
     const recordings = await Recording.find(query)
       .populate('category')
+      .populate('author_id')
       .skip(skip)
       .limit(parseInt(limit))
       .sort({ createdAt: -1 });
@@ -53,9 +54,7 @@ export const getRecordingsByCategory = async (req, res) => {
     const { page = 1, limit = 20 } = req.query;
     const skip = (page - 1) * limit;
 
-    const categoryDoc = await Category.findOne({
-      name: { $regex: new RegExp(`^${category}$`, 'i') }
-    });
+    const categoryDoc = await Category.findOne({ slug: category });
 
     if (!categoryDoc) {
       return res.json({ results: [], count: 0 });
@@ -88,6 +87,18 @@ export const getCategories = async (req, res) => {
   } catch (error) {
     console.error('Get categories error:', error);
     res.status(500).json({ error: 'Error al obtener categorías' });
+  }
+};
+
+export const getRandomRecording = async (req, res) => {
+  try {
+    const count = await Recording.countDocuments();
+    const random = Math.floor(Math.random() * count);
+    const recording = await Recording.findOne().skip(random).populate('category');
+    res.json(recording);
+  } catch (error) {
+    console.error('Get random recording error:', error);
+    res.status(500).json({ error: 'Error al obtener grabación aleatoria' });
   }
 };
 
