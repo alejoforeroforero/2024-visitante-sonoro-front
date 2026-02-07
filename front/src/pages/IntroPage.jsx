@@ -16,6 +16,14 @@ const IntroPage = ({ handleFirstClick }) => {
         <img src={headPhones} alt="" />
         <p>Conecta tus audifonos para una mejor experiencia</p>
       </div>
+      <div className={styles.demoBanner}>
+        <span className={styles.demoBadge}>DEMO</span>
+        <p>
+          Este es un demo con datos de ejemplo. Proyecto desarrollado como FullStack Developer
+          en Nova Et Vetera (2023-2024) — prototipo de API para preservar y compartir los
+          paisajes sonoros rurales de Colombia.
+        </p>
+      </div>
     </div>
   );
 };

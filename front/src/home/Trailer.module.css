@@ -57,6 +57,46 @@
 }
 
 
+.demoBanner {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #f0c040;
+  border-radius: 4px;
+  width: 65%;
+  text-align: left;
+
+  p {
+    font-size: 0.85rem;
+    font-weight: normal;
+    text-transform: none;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+  }
+}
+
+.demoBadge {
+  display: inline-block;
+  background-color: #f0c040;
+  color: #1a1a1a;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .demoBanner {
+    width: 95%;
+
+    p {
+      font-size: 0.7rem;
+    }
+  }
+}
+
 .right {
   width: 50%;
   display: flex;
