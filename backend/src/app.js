@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
 const connectDB = async () => {
   if (process.env.MONGODB_URI) {
     try {
-      await mongoose.connect(process.env.MONGODB_URI);
+      await mongoose.connect(process.env.MONGODB_URI, { family: 4 });
       console.log('MongoDB connected');
     } catch (error) {
       console.error('MongoDB connection error:', error);
