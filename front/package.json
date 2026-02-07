@@ -9,7 +9,8 @@
     "fix": "npm run lint && npm run prettier",
     "lint": "eslint . --ext js,jsx --fix --report-unused-disable-directives --max-warnings 0",
     "prettier": "prettier --write ./src/**/*.{js,jsx}",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve dist -s -l tcp://0.0.0.0:$PORT"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
@@ -34,7 +35,8 @@
     "use-local-storage": "^3.0.0",
     "yup": "^1.4.0",
     "zod": "^3.23.8",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "serve": "^14.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

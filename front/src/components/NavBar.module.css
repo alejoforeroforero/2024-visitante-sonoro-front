@@ -3,10 +3,11 @@
   top: 0px;
   position: fixed;
   max-height: 50px;
+  overflow: visible;
   background-color: var(--nav-bg);
   display: flex;
   justify-content: space-between;
-  z-index: 2;
+  z-index: 10;
   width: 100vw;
 
   a {

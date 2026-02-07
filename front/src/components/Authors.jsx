@@ -7,7 +7,7 @@ const Authors = ({ list }) => {
       <div className={styles.boxContainer}>
         {list.length > 0 ? (
           list.map((author) => {
-            return <Author key={author.id} author={author} />;
+            return <Author key={author._id} author={author} />;
           })
         ) : (
           <p>No Perfiles creados</p>

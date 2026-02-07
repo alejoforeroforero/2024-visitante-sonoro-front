@@ -37,11 +37,11 @@ const HomePage = () => {
         <div className={styles.mainContent}>
           <div className={styles.logoHead}>
             <img src={head} alt="" />
+            <AudioVisualizer
+              audioRef={audioRef}
+              currentAudioSrc={currentAudioSrc}
+            />
           </div>
-          <AudioVisualizer
-            audioRef={audioRef}
-            currentAudioSrc={currentAudioSrc}
-          />
           <AnimatePresence mode="wait">
             <Outlet />
           </AnimatePresence>

@@ -7,7 +7,7 @@ const Recordings = ({ list }) => {
     <div className={styles.recordsInnerContainer}>
       {list?.length > 0 ? (
         list.map((record) => {
-          return <Record key={record.id} record={record} />;
+          return <Record key={record._id} record={record} />;
         })
       ) : (
         <p>No hay grabaciones disponibles</p>

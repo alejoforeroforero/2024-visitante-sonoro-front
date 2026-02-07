@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecordingsStore } from "@/stores/useRecordingsStore";
 import Recordings from "@/components/Recordings";
@@ -11,13 +11,11 @@ const CategoryPage = () => {
 
   const { category } = useParams();
 
-  const [filters, setFilters] = useState({
-    category: category,
-  });
-
   useEffect(() => {
-    fetchRecordingsByCategory(filters);
-  }, [filters, fetchRecordingsByCategory]);
+    if (category) {
+      fetchRecordingsByCategory({ category });
+    }
+  }, [category, fetchRecordingsByCategory]);
 
   return (
     <div className={styles.container}>

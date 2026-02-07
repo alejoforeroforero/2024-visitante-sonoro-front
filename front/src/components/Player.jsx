@@ -180,7 +180,7 @@ const Player = ({ audioRef }) => {
     <div className={styles.player}>
       <div className={styles.info}>
         {recordDetails?.title && (
-          <Link to={`/record/${recordDetails.id}`}>
+          <Link to={`/record/${recordDetails._id}`}>
             {recordDetails.title}
           </Link>
         )}
@@ -189,7 +189,7 @@ const Player = ({ audioRef }) => {
         )}
       </div>
       <div className={styles.controls}>
-        <audio ref={audioRef} src={audioSrc} controls crossOrigin="anonymous" />
+        <audio ref={audioRef} src={audioSrc} controls />
         <div className={styles.buttons}>
           <FaStepBackward color="white" />
           {localIsPlaying ? (

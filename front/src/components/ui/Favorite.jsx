@@ -15,7 +15,7 @@ const Favorite = ({ user, recordId }) => {
   const checkFavorite = (id) => {
     if (user) {
       const isIdInArray = user["favorite_records"]?.some(
-        (item) => item.id === id
+        (item) => item._id === id
       );
       return isIdInArray;
     } else {

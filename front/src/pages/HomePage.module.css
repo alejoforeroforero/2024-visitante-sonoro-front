@@ -1,7 +1,6 @@
 .generalContent {
   height: 100vh;
   overflow: scroll;
-  padding-top: 40px;
 }
 
 .canvas {
@@ -11,6 +10,7 @@
 
 .mainContent {
   position: relative;
+  padding-top: 65vh;
   padding-bottom: 60px;
   text-align: center;
 }
@@ -19,18 +19,21 @@
   position: absolute;
   left: 0;
   top:0;
-  height: 200px;
+  height: 65vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
+  background-color: rgb(66, 66, 66);
 
   animation: fadeIn 5s forwards;
 
   img{
-    height: 70%;
+    height: 50%;
     filter: sepia(10%) invert();
+    position: relative;
+    z-index: 2;
   }
 }
 

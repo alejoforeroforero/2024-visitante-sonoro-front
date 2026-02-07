@@ -24,7 +24,7 @@ const UserProfilePage = () => {
       <div className={styles["user-recordings"]}>
         {user?.favorite_records && user.favorite_records.length > 0 ? (
           user.favorite_records.map((record) => (
-            <Record key={record.id} record={record} />
+            <Record key={record._id} record={record} />
           ))
         ) : (
           <h3>No tienes grabaciones marcadas como favoritas</h3>

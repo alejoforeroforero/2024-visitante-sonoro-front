@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import { useUserStore } from "@/stores/useUserStore";
 import { useAudioPlayerStore } from "@/stores/useAudioPlayerStore";
+import { useRecordingsStore } from "@/stores/useRecordingsStore";
 import { ToastContainer } from "react-toastify";
 import useAuth from "@/hooks/useAuth";
 
@@ -21,6 +22,9 @@ function App() {
   const isAuthorized = useUserStore((state) => state.isAuthorized);
   const getUserInfo = useUserStore((state) => state.getUserInfo);
   const changeMode = useAudioPlayerStore((state) => state.changeMode);
+  const changeAudio = useAudioPlayerStore((state) => state.changeAudio);
+  const setIsPlaying = useAudioPlayerStore((state) => state.setIsPlaying);
+  const fetchRandomRecording = useRecordingsStore((state) => state.fetchRandomRecording);
 
   useAuth();
 
@@ -34,8 +38,13 @@ function App() {
     changeMode(isDark);
   }, [isDark, changeMode]);
 
-  const handleFirstClick = () => {
+  const handleFirstClick = async () => {
     setFirstClick(true);
+    const randomRecording = await fetchRandomRecording();
+    if (randomRecording) {
+      changeAudio(randomRecording);
+      setIsPlaying(true);
+    }
   };
 
   return (

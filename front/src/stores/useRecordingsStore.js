@@ -21,9 +21,7 @@ export const useRecordingsStore = create((set) => ({
   fetchRecordingsByCategory: async (options = {}) => {
     set({ status: 'loading' });
     try {
-      const res = await visitanteApi.get(`/v1/category/?category=${options.category}`, {
-        params: options,
-      });
+      const res = await visitanteApi.get('/v1/category/', { params: options });
       set({ status: 'succeeded', recordings: res.data.results });
     } catch (error) {
       set({ status: 'failed', error: error.response?.data });
@@ -51,4 +49,14 @@ export const useRecordingsStore = create((set) => ({
   },
 
   clearRecordDetails: () => set({ recordDetails: {} }),
+
+  fetchRandomRecording: async () => {
+    try {
+      const res = await visitanteApi.get('/v1/recordings/random/');
+      return res.data;
+    } catch (error) {
+      console.error('Error fetching random recording:', error);
+      return null;
+    }
+  },
 }));

@@ -4,12 +4,14 @@ import {
   getRecordingById,
   getRecordingsByCategory,
   getCategories,
-  getCategoryById
+  getCategoryById,
+  getRandomRecording
 } from '../controllers/recordingsController.js';
 
 const router = express.Router();
 
 router.get('/recordings/', getRecordings);
+router.get('/recordings/random/', getRandomRecording);
 router.get('/recordings/:id/', getRecordingById);
 router.get('/category/', getRecordingsByCategory);
 router.get('/categories/', getCategories);

@@ -2,15 +2,20 @@ import Author from '../models/Author.js';
 
 export const getAuthors = async (req, res) => {
   try {
-    const { page = 1, limit = 20 } = req.query;
+    const { page = 1, limit = 20, search } = req.query;
     const skip = (page - 1) * limit;
 
-    const authors = await Author.find()
+    const filter = {};
+    if (search) {
+      filter.name = { $regex: search, $options: 'i' };
+    }
+
+    const authors = await Author.find(filter)
       .skip(skip)
       .limit(parseInt(limit))
       .sort({ name: 1 });
 
-    const total = await Author.countDocuments();
+    const total = await Author.countDocuments(filter);
 
     res.json({
       results: authors,
@@ -26,7 +31,10 @@ export const getAuthors = async (req, res) => {
 
 export const getAuthorById = async (req, res) => {
   try {
-    const author = await Author.findById(req.params.id).populate('recordings');
+    const author = await Author.findById(req.params.id).populate({
+      path: 'recordings',
+      populate: { path: 'category' }
+    });
     if (!author) {
       return res.status(404).json({ error: 'Autor no encontrado' });
     }
