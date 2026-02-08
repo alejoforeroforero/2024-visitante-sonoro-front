@@ -115,41 +115,44 @@ Routes defined in `front/src/Router.jsx`. Main sections:
 - `GET /authors/` - List all authors
 - `GET /authors/:id/` - Get author details
 
-## Deployment (Railway)
+## Deployment (Vercel + Render)
 
-**Project**: merry-charisma (Railway trial: $5 credit)
-
-| Service | URL |
-|---------|-----|
-| Frontend | https://frontend-production-af0d.up.railway.app |
-| Backend | https://backend-production-eaa1.up.railway.app |
+| Service | Platform | URL |
+|---------|----------|-----|
+| Frontend | Vercel | https://visitantesonoro.alejoforero.com |
+| Backend | Render | https://two024-visitante-sonoro-front.onrender.com |
 
 **Database**: MongoDB Atlas (project: visitantesonoro2026, cluster: vs)
+**DNS**: Vercel DNS (alejoforero.com) — CNAME `visitantesonoro` → `cname.vercel-dns.com`
 
 ### Deploy commands
 
-GitHub auto-deploy does NOT work for this monorepo. Deploy manually with `railway up`:
-
 ```bash
-# Backend
-railway up --service backend --path-as-root backend/
+# Frontend (from front/)
+cd front && vercel --prod
 
-# Frontend (must exclude local .env so Railway vars are used at build time)
-cd front && mv .env .env.bak && railway up --service frontend --path-as-root . && mv .env.bak .env
+# Backend: auto-deploys from GitHub on push to main
+# Manual deploy: Render dashboard → Manual Deploy → Deploy latest commit
 ```
 
-### Railway environment variables
+### Environment variables
 
-**Backend** (service: backend):
-- `PORT`, `MONGODB_URI`, `JWT_SECRET`, `GOOGLE_CLIENT_ID`, `FRONTEND_URL`
-- `RAILWAY_ROOT_DIR=backend`
+**Frontend** (Vercel):
+- `VITE_BASE_URL_BACKEND` — Render backend URL
+- `VITE_GOOGLE_CLIENT_ID` — Google OAuth client ID
+- `VITE_MAPBOX_TOKEN` — Mapbox GL token
+- VITE_ variables are baked at build time — redeploy after changing them
+- Manage: `vercel env ls` / `vercel env add` / `vercel env rm`
 
-**Frontend** (service: frontend):
-- `VITE_BASE_URL_BACKEND`, `VITE_GOOGLE_CLIENT_ID`, `VITE_MAPBOX_TOKEN`
-- `RAILWAY_ROOT_DIR=front`
+**Backend** (Render):
+- `MONGODB_URI` — MongoDB Atlas connection string
+- `JWT_SECRET` — JWT signing secret
+- `GOOGLE_CLIENT_ID` — Google OAuth client ID
+- `FRONTEND_URL` — Frontend URL for CORS (`https://visitantesonoro.alejoforero.com`)
+- `PORT` is set automatically by Render
+- Manage: Render dashboard → Environment
 
 ### Notes
-- MongoDB connection uses `{ family: 4 }` to force IPv4 (Railway IPv6 is blocked by Atlas free tier)
-- VITE_ variables are baked at build time — redeploy frontend after changing them
-- Manage Railway variables: `railway variables --service <name>`
-- Switch linked service: `railway service` (interactive)
+- MongoDB connection uses `{ family: 4 }` to force IPv4 (Atlas free tier blocks IPv6)
+- Render free tier spins down after inactivity — first request may take ~50s
+- MongoDB Atlas Network Access allows `0.0.0.0/0` (required for Render)
